@@ -1,0 +1,1870 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.0.0
+paths:
+  /api/schema/:
+    get:
+      operationId: api_schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /encuestas/:
+    get:
+      operationId: encuestas_list
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - encuestas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSurveyList'
+          description: ''
+    post:
+      operationId: encuestas_create
+      description: API endpoint that allows groups to be viewed or edited.
+      tags:
+      - encuestas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Survey'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Survey'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Survey'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: ''
+  /encuestas/{id}/:
+    get:
+      operationId: encuestas_retrieve
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this survey.
+        required: true
+      tags:
+      - encuestas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: ''
+    put:
+      operationId: encuestas_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this survey.
+        required: true
+      tags:
+      - encuestas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Survey'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Survey'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Survey'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: ''
+    patch:
+      operationId: encuestas_partial_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this survey.
+        required: true
+      tags:
+      - encuestas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSurvey'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSurvey'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSurvey'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: ''
+    delete:
+      operationId: encuestas_destroy
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this survey.
+        required: true
+      tags:
+      - encuestas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /entregas/:
+    get:
+      operationId: entregas_list
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - entregas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDeliverList'
+          description: ''
+    post:
+      operationId: entregas_create
+      description: API endpoint that allows groups to be viewed or edited.
+      tags:
+      - entregas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Deliver'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Deliver'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Deliver'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deliver'
+          description: ''
+  /entregas/{id}/:
+    get:
+      operationId: entregas_retrieve
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this deliver.
+        required: true
+      tags:
+      - entregas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deliver'
+          description: ''
+    put:
+      operationId: entregas_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this deliver.
+        required: true
+      tags:
+      - entregas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Deliver'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Deliver'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Deliver'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deliver'
+          description: ''
+    patch:
+      operationId: entregas_partial_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this deliver.
+        required: true
+      tags:
+      - entregas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDeliver'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDeliver'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDeliver'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deliver'
+          description: ''
+    delete:
+      operationId: entregas_destroy
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this deliver.
+        required: true
+      tags:
+      - entregas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /groups/:
+    get:
+      operationId: groups_list
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - groups
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedGroupList'
+          description: ''
+    post:
+      operationId: groups_create
+      description: API endpoint that allows groups to be viewed or edited.
+      tags:
+      - groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Group'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Group'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: ''
+  /groups/{id}/:
+    get:
+      operationId: groups_retrieve
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this group.
+        required: true
+      tags:
+      - groups
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: ''
+    put:
+      operationId: groups_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this group.
+        required: true
+      tags:
+      - groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Group'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Group'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: ''
+    patch:
+      operationId: groups_partial_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this group.
+        required: true
+      tags:
+      - groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedGroup'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedGroup'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedGroup'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: ''
+    delete:
+      operationId: groups_destroy
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this group.
+        required: true
+      tags:
+      - groups
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /sesiones/:
+    get:
+      operationId: sesiones_list
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - sesiones
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSessionList'
+          description: ''
+    post:
+      operationId: sesiones_create
+      description: API endpoint that allows groups to be viewed or edited.
+      tags:
+      - sesiones
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Session'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Session'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Session'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+          description: ''
+  /sesiones/{id}/:
+    get:
+      operationId: sesiones_retrieve
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this session.
+        required: true
+      tags:
+      - sesiones
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+          description: ''
+    put:
+      operationId: sesiones_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this session.
+        required: true
+      tags:
+      - sesiones
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Session'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Session'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Session'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+          description: ''
+    patch:
+      operationId: sesiones_partial_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this session.
+        required: true
+      tags:
+      - sesiones
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSession'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSession'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSession'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+          description: ''
+    delete:
+      operationId: sesiones_destroy
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this session.
+        required: true
+      tags:
+      - sesiones
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /users/:
+    get:
+      operationId: users_list
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - users
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserList'
+          description: ''
+    post:
+      operationId: users_create
+      description: API endpoint that allows users to be viewed or edited.
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /users/{id}/:
+    get:
+      operationId: users_retrieve
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - users
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: users_update
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: users_partial_update
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    delete:
+      operationId: users_destroy
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - users
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /usuarios/:
+    get:
+      operationId: usuarios_list
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - usuarios
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedHomeUserList'
+          description: ''
+    post:
+      operationId: usuarios_create
+      description: API endpoint that allows groups to be viewed or edited.
+      tags:
+      - usuarios
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HomeUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/HomeUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/HomeUser'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomeUser'
+          description: ''
+  /usuarios/{id}/:
+    get:
+      operationId: usuarios_retrieve
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this home user.
+        required: true
+      tags:
+      - usuarios
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomeUser'
+          description: ''
+    put:
+      operationId: usuarios_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this home user.
+        required: true
+      tags:
+      - usuarios
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HomeUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/HomeUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/HomeUser'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomeUser'
+          description: ''
+    patch:
+      operationId: usuarios_partial_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this home user.
+        required: true
+      tags:
+      - usuarios
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedHomeUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedHomeUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedHomeUser'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomeUser'
+          description: ''
+    delete:
+      operationId: usuarios_destroy
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this home user.
+        required: true
+      tags:
+      - usuarios
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    CarrerEnum:
+      enum:
+      - Ing
+      - HumyEdu
+      - Sociales
+      - Salud
+      - Arq-Art-Dis
+      - Negocios
+      type: string
+      description: |-
+        * `Ing` - Ingeniería y Ciencias
+        * `HumyEdu` - Humanidades y Educación
+        * `Sociales` - Ciencias Sociales
+        * `Salud` - Ciencias de la Salud
+        * `Arq-Art-Dis` - Arquitectura, Arte y Diseño
+        * `Negocios` - Negocios
+    Deliver:
+      type: object
+      properties:
+        user:
+          type: string
+          format: uri
+        date:
+          type: string
+          format: date-time
+        text_file:
+          type: string
+          nullable: true
+        image_file:
+          type: string
+          format: uri
+          nullable: true
+        url_file:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        file:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - date
+      - user
+    GradeEnum:
+      enum:
+      - Pregrado
+      - Posgrado
+      - Continua
+      type: string
+      description: |-
+        * `Pregrado` - Pregrado
+        * `Posgrado` - Posgrado
+        * `Continua` - Educación continua
+    Group:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        name:
+          type: string
+          maxLength: 150
+      required:
+      - name
+      - url
+    HomeUser:
+      type: object
+      properties:
+        username:
+          type: string
+          maxLength: 255
+        full_name:
+          type: string
+          maxLength: 255
+        pass_phase:
+          type: string
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        created_at:
+          type: string
+          format: date-time
+        verified_at:
+          type: string
+          format: date-time
+          nullable: true
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+        time_spended:
+          type: string
+        rol:
+          $ref: '#/components/schemas/RolEnum'
+        birth:
+          type: string
+          format: date
+          nullable: true
+        genre:
+          type: string
+          nullable: true
+          maxLength: 255
+        country:
+          type: string
+          nullable: true
+          maxLength: 255
+        institution:
+          type: string
+          nullable: true
+          maxLength: 255
+        carrer:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/CarrerEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        grade:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/GradeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+      required:
+      - full_name
+      - pass_phase
+      - username
+    NullEnum:
+      enum:
+      - null
+    PaginatedDeliverList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Deliver'
+    PaginatedGroupList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+    PaginatedHomeUserList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/HomeUser'
+    PaginatedSessionList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Session'
+    PaginatedSurveyList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Survey'
+    PaginatedUserList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    PatchedDeliver:
+      type: object
+      properties:
+        user:
+          type: string
+          format: uri
+        date:
+          type: string
+          format: date-time
+        text_file:
+          type: string
+          nullable: true
+        image_file:
+          type: string
+          format: uri
+          nullable: true
+        url_file:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        file:
+          type: string
+          format: uri
+          nullable: true
+    PatchedGroup:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        name:
+          type: string
+          maxLength: 150
+    PatchedHomeUser:
+      type: object
+      properties:
+        username:
+          type: string
+          maxLength: 255
+        full_name:
+          type: string
+          maxLength: 255
+        pass_phase:
+          type: string
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        created_at:
+          type: string
+          format: date-time
+        verified_at:
+          type: string
+          format: date-time
+          nullable: true
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+        time_spended:
+          type: string
+        rol:
+          $ref: '#/components/schemas/RolEnum'
+        birth:
+          type: string
+          format: date
+          nullable: true
+        genre:
+          type: string
+          nullable: true
+          maxLength: 255
+        country:
+          type: string
+          nullable: true
+          maxLength: 255
+        institution:
+          type: string
+          nullable: true
+          maxLength: 255
+        carrer:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/CarrerEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        grade:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/GradeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+    PatchedSession:
+      type: object
+      properties:
+        user:
+          type: string
+          format: uri
+        ip_address:
+          type: string
+          nullable: true
+        date_init:
+          type: string
+          format: date-time
+        date_end:
+          type: string
+          format: date-time
+    PatchedSurvey:
+      type: object
+      properties:
+        user:
+          type: string
+          format: uri
+        date_init:
+          type: string
+          format: date-time
+        date_end:
+          type: string
+          format: date-time
+        question1:
+          type: integer
+          nullable: true
+        question2:
+          type: integer
+          nullable: true
+        question3:
+          type: integer
+          nullable: true
+        question4:
+          type: integer
+          nullable: true
+        question5:
+          type: integer
+          nullable: true
+        question6:
+          type: integer
+          nullable: true
+        question7:
+          type: integer
+          nullable: true
+        question8:
+          type: integer
+          nullable: true
+        question9:
+          type: integer
+          nullable: true
+        question10:
+          type: integer
+          nullable: true
+        question11:
+          type: integer
+          nullable: true
+        question12:
+          type: integer
+          nullable: true
+        question13:
+          type: integer
+          nullable: true
+        question14:
+          type: integer
+          nullable: true
+        question15:
+          type: integer
+          nullable: true
+        question16:
+          type: integer
+          nullable: true
+        question17:
+          type: integer
+          nullable: true
+        question18:
+          type: integer
+          nullable: true
+        question19:
+          type: integer
+          nullable: true
+        question20:
+          type: integer
+          nullable: true
+        question21:
+          type: integer
+          nullable: true
+        question22:
+          type: integer
+          nullable: true
+        question23:
+          type: integer
+          nullable: true
+        question24:
+          type: integer
+          nullable: true
+        question25:
+          type: integer
+          nullable: true
+        question26:
+          type: integer
+          nullable: true
+        question27:
+          type: integer
+          nullable: true
+        question28:
+          type: integer
+          nullable: true
+        question29:
+          type: integer
+          nullable: true
+        question30:
+          type: integer
+          nullable: true
+        question31:
+          type: integer
+          nullable: true
+        question32:
+          type: integer
+          nullable: true
+        question33:
+          type: integer
+          nullable: true
+        question34:
+          type: integer
+          nullable: true
+        question35:
+          type: integer
+          nullable: true
+        question36:
+          type: integer
+          nullable: true
+        question37:
+          type: integer
+          nullable: true
+        question38:
+          type: integer
+          nullable: true
+        question39:
+          type: integer
+          nullable: true
+        question40:
+          type: integer
+          nullable: true
+        question41:
+          type: integer
+          nullable: true
+        question42:
+          type: integer
+          nullable: true
+        question43:
+          type: integer
+          nullable: true
+        question44:
+          type: integer
+          nullable: true
+        question45:
+          type: integer
+          nullable: true
+        question46:
+          type: integer
+          nullable: true
+        question47:
+          type: integer
+          nullable: true
+        question48:
+          type: integer
+          nullable: true
+        question49:
+          type: integer
+          nullable: true
+    PatchedUser:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        groups:
+          type: array
+          items:
+            type: string
+            format: uri
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+    RolEnum:
+      enum:
+      - U
+      - A
+      type: string
+      description: |-
+        * `U` - Usuario
+        * `A` - Administrador
+    Session:
+      type: object
+      properties:
+        user:
+          type: string
+          format: uri
+        ip_address:
+          type: string
+          nullable: true
+        date_init:
+          type: string
+          format: date-time
+        date_end:
+          type: string
+          format: date-time
+      required:
+      - date_end
+      - date_init
+      - user
+    Survey:
+      type: object
+      properties:
+        user:
+          type: string
+          format: uri
+        date_init:
+          type: string
+          format: date-time
+        date_end:
+          type: string
+          format: date-time
+        question1:
+          type: integer
+          nullable: true
+        question2:
+          type: integer
+          nullable: true
+        question3:
+          type: integer
+          nullable: true
+        question4:
+          type: integer
+          nullable: true
+        question5:
+          type: integer
+          nullable: true
+        question6:
+          type: integer
+          nullable: true
+        question7:
+          type: integer
+          nullable: true
+        question8:
+          type: integer
+          nullable: true
+        question9:
+          type: integer
+          nullable: true
+        question10:
+          type: integer
+          nullable: true
+        question11:
+          type: integer
+          nullable: true
+        question12:
+          type: integer
+          nullable: true
+        question13:
+          type: integer
+          nullable: true
+        question14:
+          type: integer
+          nullable: true
+        question15:
+          type: integer
+          nullable: true
+        question16:
+          type: integer
+          nullable: true
+        question17:
+          type: integer
+          nullable: true
+        question18:
+          type: integer
+          nullable: true
+        question19:
+          type: integer
+          nullable: true
+        question20:
+          type: integer
+          nullable: true
+        question21:
+          type: integer
+          nullable: true
+        question22:
+          type: integer
+          nullable: true
+        question23:
+          type: integer
+          nullable: true
+        question24:
+          type: integer
+          nullable: true
+        question25:
+          type: integer
+          nullable: true
+        question26:
+          type: integer
+          nullable: true
+        question27:
+          type: integer
+          nullable: true
+        question28:
+          type: integer
+          nullable: true
+        question29:
+          type: integer
+          nullable: true
+        question30:
+          type: integer
+          nullable: true
+        question31:
+          type: integer
+          nullable: true
+        question32:
+          type: integer
+          nullable: true
+        question33:
+          type: integer
+          nullable: true
+        question34:
+          type: integer
+          nullable: true
+        question35:
+          type: integer
+          nullable: true
+        question36:
+          type: integer
+          nullable: true
+        question37:
+          type: integer
+          nullable: true
+        question38:
+          type: integer
+          nullable: true
+        question39:
+          type: integer
+          nullable: true
+        question40:
+          type: integer
+          nullable: true
+        question41:
+          type: integer
+          nullable: true
+        question42:
+          type: integer
+          nullable: true
+        question43:
+          type: integer
+          nullable: true
+        question44:
+          type: integer
+          nullable: true
+        question45:
+          type: integer
+          nullable: true
+        question46:
+          type: integer
+          nullable: true
+        question47:
+          type: integer
+          nullable: true
+        question48:
+          type: integer
+          nullable: true
+        question49:
+          type: integer
+          nullable: true
+      required:
+      - date_end
+      - date_init
+      - user
+    User:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        groups:
+          type: array
+          items:
+            type: string
+            format: uri
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+      required:
+      - url
+      - username
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
