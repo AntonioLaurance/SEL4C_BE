@@ -6,7 +6,7 @@ from datetime import timedelta
 # Create your models here.
 class User(AbstractUser):
     # Login information
-    email = models.EmailField(null = False, unique = True)
+    email = models.EmailField('email address', primary_key = True, null = False, unique = True)
     second_last_name = models.CharField(max_length = 150, null = False, default = "")
     pass_phase = models.CharField(max_length = 255, null = True, blank = False)
 
@@ -21,6 +21,10 @@ class User(AbstractUser):
     institution = models.CharField(max_length = 255, null = True)
     carrer = models.CharField(max_length = 255, null = True)
     grade = models.CharField(max_length = 255, null = True)
+
+    # Change the attribute for the login for the user
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
 
     class Meta:
         swappable = 'AUTH_USER_MODEL'

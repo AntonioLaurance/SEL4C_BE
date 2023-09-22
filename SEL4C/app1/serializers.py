@@ -1,16 +1,15 @@
 from django.contrib.auth.models import  Group
-from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import User, HomeUser, Session, Survey, Deliver
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'first_name', 'last_name', 'second_last_name', 'email',
+        fields = ['email', 'password', 'first_name', 'last_name', 'second_last_name', 
                   'age', 'genre', 'country', 'institution', 'carrer', 'grade']
 
 
-class HomeUserSerializer(serializers.HyperlinkedModelSerializer):
+class HomeUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = HomeUser
         fields = ['username', 'password', 'name', 'first_surname', 'second_surname', 'pass_phase',
@@ -19,13 +18,13 @@ class HomeUserSerializer(serializers.HyperlinkedModelSerializer):
                   'institution', 'carrer', 'grade']
         
 
-class SessionSerializer(serializers.HyperlinkedModelSerializer):
+class SessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Session
         fields = ['user', 'ip_address', 'date_init', 'date_end']
 
 
-class SurveySerializer(serializers.HyperlinkedModelSerializer):
+class SurveySerializer(serializers.ModelSerializer):
     class Meta:
         model = Survey
         fields = ['user', 'date_init', 'date_end',                                                                          # Information
@@ -39,13 +38,13 @@ class SurveySerializer(serializers.HyperlinkedModelSerializer):
                   'question44', 'question45', 'question46', 'question47', 'question48', 'question49']                       # Innovative thinking
 
 
-class DeliverSerializer(serializers.HyperlinkedModelSerializer):
+class DeliverSerializer(serializers.ModelSerializer):
     class Meta:
         model = Deliver
         fields = ['user', 'date', 'text_file', 'image_file', 'url_file', 'file']
 
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
+class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ['url', 'name']

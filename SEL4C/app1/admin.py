@@ -26,7 +26,7 @@ class UserAdmin(admin.ModelAdmin):
             'fields': ('institution', 'carrer', 'grade')
         })
     )
-    list_display = ('username', 'email', 'first_name', 'last_name', 'second_last_name', 'is_staff')
+    list_display = ('email', 'first_name', 'last_name', 'second_last_name', 'is_staff')
     list_filter = ('is_staff', 'is_superuser', 'is_active')
 
 @admin.register(Session)

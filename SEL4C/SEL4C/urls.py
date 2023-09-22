@@ -25,7 +25,6 @@ router.register(r'usuarios', views.UserViewSet)
 router.register(r'sesiones', views.SessionViewSet)
 router.register(r'encuestas', views.SurveyViewSet)
 router.register(r'entregas', views.DeliverViewSet)
-router.register(r'grupos', views.GroupViewSet)
 
 # Wire op our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
