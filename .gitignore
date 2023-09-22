@@ -399,3 +399,7 @@ FodyWeavers.xsd
 
 # Cache of visual studio code
 *.DS_Store
+
+# Temporary files in database
+*__pycache__
+*migrations
