@@ -6,6 +6,7 @@ from datetime import timedelta
 # Create your models here.
 class User(AbstractUser):
     # Login information
+    username = models.CharField(max_length = 150, null = True, blank = False, unique = False)
     email = models.EmailField('email address', primary_key = True, null = False, unique = True)
     second_last_name = models.CharField(max_length = 150, null = False, default = "")
     pass_phase = models.CharField(max_length = 255, null = True, blank = False)
