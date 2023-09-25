@@ -2,33 +2,42 @@ from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 from django.db import models
 from datetime import timedelta
+from django.utils.text import slugify
+import uuid
 
 # Create your models here.
 class User(AbstractUser):
     # Login information
-    username = models.CharField(max_length = 150, null = True, blank = False, unique = False)
-    email = models.EmailField('email address', primary_key = True, null = False, unique = True)
-    second_last_name = models.CharField(max_length = 150, null = False, default = "")
-    pass_phase = models.CharField(max_length = 255, null = True, blank = False)
+    username = models.CharField(max_length=150, unique=True, null=True, blank=True, default='default_username')
+    email = models.EmailField('email address', primary_key=True, null=False, unique=True)
+    second_last_name = models.CharField(max_length=150, null=False, default="")
+    pass_phase = models.CharField(max_length=255, null=True, blank=True)  # Cambié a blank=True
 
     # User Information
-    time_spended = models.DurationField(default = timedelta(days = 0, hours = 0, minutes = 0, seconds = 0))
-    verified_at = models.DateTimeField(null = True)
+    time_spended = models.DurationField(default=timedelta(days=0, hours=0, minutes=0, seconds=0))
+    verified_at = models.DateTimeField(null=True)
 
-    # Data analysis    
-    age = models.PositiveSmallIntegerField(null = True)
-    genre = models.CharField(max_length = 255, null = True)
-    country = models.CharField(max_length = 255, null = True)      
-    institution = models.CharField(max_length = 255, null = True)
-    carrer = models.CharField(max_length = 255, null = True)
-    grade = models.CharField(max_length = 255, null = True)
+    # Data analysis
+    age = models.PositiveSmallIntegerField(null=True)
+    genre = models.CharField(max_length=255, null=True)
+    country = models.CharField(max_length=255, null=True)
+    institution = models.CharField(max_length=255, null=True)
+    carrer = models.CharField(max_length=255, null=True)
+    grade = models.CharField(max_length=255, null=True)
 
     # Change the attribute for the login for the user
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = []
 
     class Meta:
         swappable = 'AUTH_USER_MODEL'
+
+    def save(self, *args, **kwargs):
+        # Asignar un valor único al campo username si está en blanco
+        if not self.username:
+            unique_id = uuid.uuid4().hex[:6].lower()
+            self.username = slugify(f"{self.email}-{unique_id}")
+        super().save(*args, **kwargs)
 
 
 class HomeUser(models.Model):
