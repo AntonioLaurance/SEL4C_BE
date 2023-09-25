@@ -50,6 +50,8 @@ INSTALLED_APPS = [
 # Default user model
 AUTH_USER_MODEL = "app1.User"
 
+LOGIN_REDIRECT_URL = "/"
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
