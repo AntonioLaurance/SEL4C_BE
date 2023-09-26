@@ -18,15 +18,15 @@
       <h1 class="logo">SEL4C</h1>
     </div>
     <div class="centered-buttons">
-      <a href="http://sel4c.japaneast.cloudapp.azure.com/" class="nav-button2">INICIO</a>
-      <a href="http://sel4c.japaneast.cloudapp.azure.com//contacto" class="nav-button2">CONTACTO</a>
+      <a href="{% url 'index' %}" class="nav-button2">INICIO</a>
+      <a href="{% url 'contacto' %}" class="nav-button2">CONTACTO</a>
     </div>
     <button class="login-button">INICIAR SESION</button>
   </header>
 
   <div class="container">
     <h2>INICIO SESION</h2>
-    <form action="http://sel4c.japaneast.cloudapp.azure.com/login/" method="post">
+    <form action="{% url 'login' %}" method="post">
       {% csrf_token %}
       <div class="input-container">
         <label for="username">Usuario:</label>
