@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+
+{% load static %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MENU</title>
+  <link rel="stylesheet" href="{% static 'css/iniciosesion.css' %}">
+</head>
+
+<!-- header y botones -->
+<body>
+  <header>
+    <div class="logo-and-nav">
+      <img src="{% static 'images/SEL4C.png' %}" alt="Logo">
+      <h1 class="logo">SEL4C</h1>
+    </div>
+    <div class="centered-buttons">
+      <a href="http://127.0.0.1:8000/" class="nav-button2">INICIO</a>
+      <a href="http://127.0.0.1:8000/contacto" class="nav-button2">CONTACTO</a>
+    </div>
+    <button class="login-button">INICIAR SESION</button>
+  </header>
+
+  <div class="container">
+    <h2>INICIO SESION</h2>
+    <form action="http://127.0.0.1:8000/api-auth/login/" method="post">
+      {% csrf_token %}
+      <div class="input-container">
+        <label for="username">Usuario:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="input-container">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="input-container">
+        <button type="submit">Enviar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- texto menu -->
+
+</body>
+
+</html>

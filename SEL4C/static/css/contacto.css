@@ -1,0 +1,174 @@
+body {
+    font-family: Montserrat, Semibold;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: #fff;
+    font-size: 16px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    color: #fff;
+    padding: 60px;
+}
+
+.logo-and-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espacio entre el logo y los botones de navegación */
+}
+
+.logo-and-nav img{
+    width: 60px;
+    height: auto;
+}
+
+.logo {
+    margin-bottom: 10px; /* Agregamos margen inferior al logo "SEL4C" */
+}
+
+header h1 {
+    margin: 0;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+/* Estilo base para los botones */
+.nav-button {
+    padding: 5px 10px;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    position: relative; /* Añadimos posición relativa para que el pseudo-elemento se posicione con respecto a este elemento */
+}
+
+.nav-button2 {
+    padding: 5px 10px;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    position: relative; /* Añadimos posición relativa para que el pseudo-elemento se posicione con respecto a este elemento */
+}
+
+/* Estilo del botón "Inicio" */
+.nav-button.inicio {
+    font-family: Montserrat Classic, Regular;
+    font-size: 10px;
+}
+
+/* Estilo del botón "Contacto" */
+.nav-button.contacto {
+    font-family: Montserrat Classic, Regular;
+    font-size: 10px;
+}
+
+/* Estilo del botón "Iniciar Sesión" */
+.login-button {
+    font-family: Montserrat Classic, Regular;
+    font-size: 12px;
+    border-radius: 20px; /* Ajusta el valor según el grado de redondeo deseado */
+    width: 120px; /* Ajusta el ancho del botón según tus preferencias */
+    height: 35px; /* Ajusta la altura del botón según tus preferencias */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Estilo del pseudo-elemento ::before */
+.nav-button::before {
+    content: ''; /* Agregamos contenido vacío para el pseudo-elemento */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px; /* Altura de la línea resaltada */
+    background-color: #0057A7; /* Color de la línea resaltada */
+    transform: scaleX(0); /* Inicialmente, la línea tiene una escala de 0 para que esté oculta */
+    transform-origin: left center;
+    transition: transform 0.4s ease; /* Transición suave para la animación */
+}
+
+/* Efecto hover que expande la línea resaltada */
+.nav-button:hover::before {
+    transform: scaleX(1); /* Expandimos la línea a lo largo del eje X */
+}
+
+.bigger-text {
+    font-family: Montserrat, ExtraBold;
+    font-size: 100px;
+    align-items: center;
+    position: absolute;
+    top: 28%;
+    left: 10%;
+}
+
+.small-text {
+    font-family: Montserrat, Regular;
+    color: #ccc;
+    position: absolute;
+    top: 50%;
+    left: 5%;
+}
+
+.login-button {
+    background-color: #0057A7;
+    color: #ffffff;
+    order: 3;
+}
+.big-text {
+    font-family: Montserrat, ExtraBold;
+    font-size: 30px;
+    position: absolute;
+    top: 30%;
+    left: 60%;
+}
+.text-contact {
+    font-family: Montserrat, ExtraBold;
+    color: #ccc;
+    font-size: 25px;
+    position: absolute;
+    top: 38%;
+    left: 70%;
+}
+.links {
+    font-family: Montserrat, Bold;
+    color: #0057A7;
+    font-size: 25px;
+    position: absolute;
+    top: 41%;
+    left: 66%;
+}
+.text-contact1 {
+    font-family: Montserrat, ExtraBold;
+    color: #ccc;
+    font-size: 25px;
+    position: absolute;
+    top: 49%;
+    left: 66%;
+}
+.links1 {
+    font-family: Montserrat, Bold;
+    color: #0057A7;
+    font-size: 25px;
+    position: absolute;
+    top: 53%;
+    left: 68%;
+}
+.leyenda {
+    font-family: Montserrat, Regular;
+    color: #555;
+    position: absolute;
+    text-align: center;
+    top: 90%;
+    left: 43%;
+}

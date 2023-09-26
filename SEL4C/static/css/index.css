@@ -1,0 +1,233 @@
+body {
+    font-family: Montserrat, Semibold;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: #fff;
+    font-size: 16px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    color: #fff;
+    padding: 60px;
+}
+
+.logo-and-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espacio entre el logo y los botones de navegación */
+}
+
+.leyenda {
+    font-family: Montserrat, Regular;
+    color: #555;
+    position: absolute;
+    text-align: center;
+    padding-bottom: 10px;
+    /* top: 90%; */
+    /* left: 43%; */
+}
+
+.logo-and-nav img{
+    width: 60px;
+    height: auto;
+}
+
+.logo {
+    margin-bottom: 10px; /* Agregamos margen inferior al logo "SEL4C" */
+}
+
+header h1 {
+    margin: 0;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+/* Estilo base para los botones */
+.nav-button {
+    padding: 5px 10px;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    position: relative; /* Añadimos posición relativa para que el pseudo-elemento se posicione con respecto a este elemento */
+}
+
+.nav-button2 {
+    padding: 5px 10px;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    position: relative; /* Añadimos posición relativa para que el pseudo-elemento se posicione con respecto a este elemento */
+}
+
+/* Estilo del botón "Inicio" */
+.nav-button.inicio {
+    font-family: Montserrat Classic, Regular;
+    font-size: 10px;
+}
+
+/* Estilo del botón "Contacto" */
+.nav-button.contacto {
+    font-family: Montserrat Classic, Regular;
+    font-size: 10px;
+}
+
+/* Estilo del botón "Iniciar Sesión" */
+.login-button {
+    font-family: Montserrat Classic, Regular;
+    font-size: 12px;
+    border-radius: 20px; /* Ajusta el valor según el grado de redondeo deseado */
+    width: 120px; /* Ajusta el ancho del botón según tus preferencias */
+    height: 35px; /* Ajusta la altura del botón según tus preferencias */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Estilo del pseudo-elemento ::before */
+.nav-button::before {
+    content: ''; /* Agregamos contenido vacío para el pseudo-elemento */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px; /* Altura de la línea resaltada */
+    background-color: #0057A7; /* Color de la línea resaltada */
+    transform: scaleX(0); /* Inicialmente, la línea tiene una escala de 0 para que esté oculta */
+    transform-origin: left center;
+    transition: transform 0.4s ease; /* Transición suave para la animación */
+}
+
+/* Efecto hover que expande la línea resaltada */
+.nav-button:hover::before {
+    transform: scaleX(1); /* Expandimos la línea a lo largo del eje X */
+}
+
+
+.login-button {
+    background-color: #0057A7;
+    color: #ffffff;
+    order: 3;
+}
+
+/*
+.login-button:hover {
+    background-color: #3fb6bf;
+}
+
+.login-form {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.login-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.login-input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.login-button-modal {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button-modal:hover {
+    background-color: #0056b3;
+}
+*/
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+/* Estilo del contenedor de los textos */
+.text-container {
+    display: flex;
+    flex-direction: column; /* Apila los textos verticalmente */
+    align-items: center; /* Centra verticalmente los textos en el contenedor */
+    justify-content: center; /* Centra horizontalmente los textos en el contenedor */
+    width: 50%; /* Ajusta el ancho del contenedor de texto según tus necesidades */
+}
+
+/* Estilo de los textos */
+.text-container p {
+    text-align: left; /* Alinea el texto a la izquierda */
+    margin: 10px 0; /* Agrega margen superior e inferior entre los párrafos */
+}
+.big-text {
+    font-family: Montserrat, ExtraBold;
+    font-size: 80px;
+}
+.bigger-text {
+    font-family: Montserrat, ExtraBold;
+    font-size: 100px;
+    align-items: center;
+}
+.small-text {
+    font-family: Montserrat, Regular;
+    color: #ccc;
+}
+
+/* Estilo del contenedor de la imagen */
+.image {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Estilo de la imagen */
+.image img {
+    width: 500px;
+    height: auto;
+    margin-left: 20px; /* Ajusta el margen izquierdo para mover la imagen hacia la izquierda */
+}
+.titleContact {
+    position: absolute;
+    left: 20%;
+    top: 50%;
+    font-size: 100px;
+    transform: translate(-50%, -50%);
+    text-align: center; /* Alineación del texto al centro horizontalmente */
+  }
+  .textContact {
+    position: absolute;
+    left: 20%;
+    top: 65%;
+    font-size: 30px;
+    transform: translate(-50%, -50%);
+    text-align: center; /* Alineación del texto al centro horizontalmente */
+  }
+

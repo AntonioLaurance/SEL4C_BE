@@ -1,0 +1,184 @@
+body {
+    font-family: Montserrat, Semibold;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: #fff;
+    font-size: 16px;
+    
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    color: #fff;
+    padding: 60px;
+}
+
+.centered-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.logo-and-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espacio entre el logo y los botones de navegación */
+}
+
+.logo-and-nav img{
+    width: 60px;
+    height: auto;
+}
+
+.logo {
+    margin-bottom: 10px; /* Agregamos margen inferior al logo "SEL4C" */
+}
+
+header h1 {
+    margin: 0;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 20px;
+    left: 50%;
+    text-align: center;
+}
+
+/* Estilo base para los botones */
+.nav-button {
+    /*font-family: 'TipoDeLetraBotones', sans-serif;*/
+    /*font-size: 18px;*/
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    /*margin: 0 10px; /* Agrega margen horizontal entre los botones */
+    /*border-radius: 5px;*/
+    background-color: #555;
+    border: no
+    cursor: pointer;
+    position: relative;
+}
+
+.nav-button2 {
+    padding: 5px 10px;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    position: relative; /* Añadimos posición relativa para que el pseudo-elemento se posicione con respecto a este elemento */
+}
+
+/* Estilo del botón "Inicio" */
+.nav-button.inicio {
+    font-family: Montserrat Classic, Regular;
+    font-size: 10px;
+}
+
+/* Estilo del botón "Contacto" */
+.nav-button.contacto {
+    font-family: Montserrat Classic, Regular;
+    font-size: 10px;
+}
+
+/* Estilo del botón "Iniciar Sesión" */
+.login-button {
+    font-family: Montserrat Classic, Regular;
+    font-size: 12px;
+    border-radius: 20px; /* Ajusta el valor según el grado de redondeo deseado */
+    width: 120px; /* Ajusta el ancho del botón según tus preferencias */
+    height: 35px; /* Ajusta la altura del botón según tus preferencias */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo del pseudo-elemento ::before */
+.nav-button::before {
+    content: ''; /* Agregamos contenido vacío para el pseudo-elemento */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px; /* Altura de la línea resaltada */
+    background-color: #0057A7; /* Color de la línea resaltada */
+    transform: scaleX(0); /* Inicialmente, la línea tiene una escala de 0 para que esté oculta */
+    transform-origin: left center;
+    transition: transform 0.4s ease; /* Transición suave para la animación */
+}
+
+/* Efecto hover que expande la línea resaltada */
+.nav-button:hover::before {
+    transform: scaleX(1); /* Expandimos la línea a lo largo del eje X */
+}
+
+
+/* Estilo del pseudo-elemento ::before */
+.nav-button::before {
+    content: ''; /* Agregamos contenido vacío para el pseudo-elemento */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px; /* Altura de la línea resaltada */
+    background-color: #0057A7; /* Color de la línea resaltada */
+    transform: scaleX(0); /* Inicialmente, la línea tiene una escala de 0 para que esté oculta */
+    transform-origin: left center;
+    transition: transform 0.4s ease; /* Transición suave para la animación */
+}
+
+/* Efecto hover que expande la línea resaltada */
+.nav-button:hover::before {
+    transform: scaleX(1); /* Expandimos la línea a lo largo del eje X */
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #000000;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+/* Estilos para los campos del formulario */
+.input-container {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* Estilos para el botón */
+button {
+    background-color: #0057A7;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #40f7e3;
+}
+

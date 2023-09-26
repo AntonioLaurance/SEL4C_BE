@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MENU</title>
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+
+<!-- header y botones -->
+
+<body>
+  <header>
+    <div class="logo-and-nav">
+      <img src="{% static 'images/SEL4C.png' %}" alt="Logo">
+      <h1 class="logo">SEL4C</h1>
+    </div>
+    <div class="nav-buttons">
+      <a href="http://127.0.0.1:8000/" class="nav-button">INICIO</a>
+      <a href="http://127.0.0.1:8000/contacto" class="nav-button">CONTACTO</a>
+    </div>
+
+    <a href="http://127.0.0.1:8000/login" class="nav-button2 login-button">INICIAR SESION</a>
+  </header>
+
+  <!-- texto menu -->
+
+  <div class="content">
+    <div class="text-container">
+      <p class="big-text">IMPORTANCIA DE GENERAR VALOR SOCIAL</p>
+      <p class="small-text">Contribuir con la innovación educativa para el emprendimiento social y el pensamiento
+        complejo, a través de la integración de inteligencia artificial para promover el aprendizaje adaptativo a las
+        necesidades de los estudiantes </p>
+    </div>
+    <div class="image">
+      <img src="{% static 'images/telephone.png' %}" alt="Imagen">
+    </div>
+  </div>
+  <div>
+    <p class="leyenda">2023 - Tec de Monterrey - Política de Privacidad</p>
+  </div>
+  <script src="scripts.js"></script>
+</body>
+
+</html>

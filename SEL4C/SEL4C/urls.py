@@ -29,8 +29,11 @@ router.register(r'entregas', views.DeliverViewSet)
 # Wire op our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace = 'rest_framework')),
+    path('', views.index, name = 'index'),
+    path('contacto/', views.contacto, name = 'contacto'),
     path('admin/', admin.site.urls),
+    path('login/', views.LoginView.as_view(template_name = 'iniciosesion.html'), name = 'login'),
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace = 'rest_framework')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
 ]
