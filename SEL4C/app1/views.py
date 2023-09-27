@@ -36,7 +36,7 @@ def auth(request):
     else:
         # Init the session
         login(request, user)
-        
+
         # The backend authenticated the credentials
         json = {'username': user.__getattribute__("username"),
                 'pass_phase': user.__getattribute__("pass_phase"),
@@ -70,16 +70,6 @@ def auth(request):
         
     
     return HttpResponse(dumps(json), content_type = 'application/json')
-
-class DangerousLoginView(LoginView):
-    '''A LoginView with no CSRF protection.'''
-
-    @csrf_exempt
-    def dispatch(self, request, *args, **kwargs):
-        if self.redirect_authenticated_user and self.request.user.is_authenticated:
-            redirect_to = self.get_success_url()
-            return HttpResponseRedirect(redirect_to)
-        return super(LoginView, self).dispatch(request, *args, **kwargs)
 
 class UserViewSet(viewsets.ModelViewSet):
     """
