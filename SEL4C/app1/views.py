@@ -1,21 +1,75 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponseRedirect
-from .models import User
+from django.http import HttpResponse, HttpResponseRedirect
 from rest_framework import viewsets
 from rest_framework import permissions
-from app1.models import HomeUser, Session, Survey, Deliver
+from app1.models import User, HomeUser, Session, Survey, Deliver
 from app1.serializers import UserSerializer, HomeUserSerializer, SessionSerializer, SurveySerializer, DeliverSerializer, GroupSerializer
-from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import  redirect
+from json import loads, dumps
 
 # Create your views here.
-@csrf_exempt
-def login(request):
-    return render(request, LoginView.as_view(template_name = 'iniciosesion.html'))
+# @csrf_exempt
+# def login(request):
+#    return render(request, LoginView.as_view(template_name = 'iniciosesion.html'))
 
+# Authentificate users in external sites
+# This functions with the HTTP verb 'POST'
+@csrf_exempt
+def auth(request):
+    # Deserialization
+    body_unicode = request.body.decode('utf-8')
+    body = loads(body_unicode)
+
+    print(body_unicode)
+ 
+    # Authentification with given credentials
+    # login(request, )
+    user = authenticate(request, username = body["username"], password = body["password"])
+
+    if user is None:
+        # The backend no authenticated the credentials
+        json = {'detail': 'Invalid credentials'}
+
+    else:
+        # Init the session
+        login(request, user)
+        
+        # The backend authenticated the credentials
+        json = {'username': user.__getattribute__("username"),
+                'pass_phase': user.__getattribute__("pass_phase"),
+                'email': user.get_username(),   
+
+                'personal_info': {
+                    'name': user.__getattribute__("first_name"), 
+                    'first_surname': user.__getattribute__("last_name"),
+                    'second_surname': user.__getattribute__("second_last_name"),
+                    'age': user.__getattribute__("age"),
+                    'genre': user.__getattribute__("genre"),
+                    'contry': user.__getattribute__("country"),
+                },
+
+                'important_dates': {
+                    'date_joined': user.__getattribute__("date_joined").__str__(),
+                    'last_login': user.__getattribute__("last_login").__str__(),
+
+                },
+
+                'academic_info': {
+                    'institution': user.__getattribute__("institution"),
+                    'grade': user.__getattribute__("grade"),
+                    'carrer': user.__getattribute__("carrer")
+                },
+                
+                'time_spended': user.__getattribute__("time_spended").__str__(),
+                'verified_at': user.__getattribute__("verified_at").__str__(),
+                'HMAC_hash': user.get_session_auth_hash()}
+        
+        
+    
+    return HttpResponse(dumps(json), content_type = 'application/json')
 
 class DangerousLoginView(LoginView):
     '''A LoginView with no CSRF protection.'''
@@ -82,7 +136,7 @@ def index(request):
 def contacto(request):
     return render(request, 'contacto.html')
 
-
+@csrf_exempt
 def logout_user(request):
     logout(request)
     return redirect('login')
