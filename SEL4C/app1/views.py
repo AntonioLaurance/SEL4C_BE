@@ -8,6 +8,8 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from app1.models import HomeUser, Session, Survey, Deliver
 from app1.serializers import UserSerializer, HomeUserSerializer, SessionSerializer, SurveySerializer, DeliverSerializer, GroupSerializer
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import  redirect
 
 # Create your views here.
 @csrf_exempt
@@ -79,3 +81,8 @@ def index(request):
 # Contact page
 def contacto(request):
     return render(request, 'contacto.html')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
