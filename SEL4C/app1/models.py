@@ -8,7 +8,7 @@ import uuid
 # Create your models here.
 class User(AbstractUser):
     # Login information
-    username = models.CharField(max_length=150, unique=True, null=True, blank=True)
+    username = models.CharField(max_length=150, unique=False, null=True, blank=True)
     email = models.EmailField('email address', primary_key=True, null=False, unique=True)
     second_last_name = models.CharField(max_length=150, null=False, default="")
     pass_phase = models.CharField(max_length=255, null=True, blank=True)  # Cambié a blank=True
