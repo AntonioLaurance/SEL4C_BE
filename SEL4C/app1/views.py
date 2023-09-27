@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseRedirect
 from .models import User
 from rest_framework import viewsets
 from rest_framework import permissions
@@ -8,8 +10,20 @@ from app1.models import HomeUser, Session, Survey, Deliver
 from app1.serializers import UserSerializer, HomeUserSerializer, SessionSerializer, SurveySerializer, DeliverSerializer, GroupSerializer
 
 # Create your views here.
-class MyLoginView(LoginView):
-    template_name = "iniciosesion.html"
+@csrf_exempt
+def login(request):
+    return render(request, LoginView.as_view(template_name = 'iniciosesion.html'))
+
+
+class DangerousLoginView(LoginView):
+    '''A LoginView with no CSRF protection.'''
+
+    @csrf_exempt
+    def dispatch(self, request, *args, **kwargs):
+        if self.redirect_authenticated_user and self.request.user.is_authenticated:
+            redirect_to = self.get_success_url()
+            return HttpResponseRedirect(redirect_to)
+        return super(LoginView, self).dispatch(request, *args, **kwargs)
 
 class UserViewSet(viewsets.ModelViewSet):
     """

@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.views.decorators.csrf import csrf_exempt
 from drf_spectacular.views import SpectacularAPIView
 from rest_framework import routers
 from app1 import views
@@ -25,14 +26,14 @@ router.register(r'usuarios', views.UserViewSet)
 router.register(r'sesiones', views.SessionViewSet)
 router.register(r'encuestas', views.SurveyViewSet)
 router.register(r'entregas', views.DeliverViewSet)
-
+ 
 # Wire op our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
+# Additionally, we include login URLs for the browsable API. 
 urlpatterns = [
     path('', views.index, name = 'index'),
     path('contacto/', views.contacto, name = 'contacto'),
     path('admin/', admin.site.urls),
-    path('login/', views.LoginView.as_view(template_name = 'iniciosesion.html'), name = 'login'),
+    path('login/', views.DangerousLoginView.as_view(template_name = 'iniciosesion.html'), name = 'login'),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace = 'rest_framework')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
