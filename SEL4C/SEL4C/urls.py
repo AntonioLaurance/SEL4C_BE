@@ -36,7 +36,7 @@ urlpatterns = [
     path('login/', views.LoginView.as_view(template_name = 'iniciosesion.html'), name = 'login'),
     path('api/', include(router.urls)),
     path('auth/', views.auth, name = 'auth'),
-    # path('api-auth/', include('rest_framework.urls', namespace = 'rest_framework')),
+    path('api-auth/', include('rest_framework.urls', namespace = 'rest_framework')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('logout/',views.logout_user,name='logout'),
 ]

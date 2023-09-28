@@ -22,8 +22,6 @@ def auth(request):
     # Deserialization
     body_unicode = request.body.decode('utf-8')
     body = loads(body_unicode)
-
-    print(body_unicode)
  
     # Authentification with given credentials
     # login(request, )
