@@ -3,28 +3,25 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, HttpResponseRedirect
-from rest_framework import viewsets
-from rest_framework import permissions
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from app1.models import User, HomeUser, Session, Survey, Deliver
 from app1.serializers import UserSerializer, HomeUserSerializer, SessionSerializer, SurveySerializer, DeliverSerializer, GroupSerializer
+from rest_framework import viewsets, permissions
 from json import loads, dumps
+import sqlite3
 
+# --------------------------------------------------------------------
 # Create your views here.
-# @csrf_exempt
-# def login(request):
-#    return render(request, LoginView.as_view(template_name = 'iniciosesion.html'))
-
+# --------------------------------------------------------------------
 # Authentificate users in external sites
 # This functions with the HTTP verb 'POST'
 @csrf_exempt
-def auth(request):
+def auth(request: HttpRequest):
     # Deserialization
     body_unicode = request.body.decode('utf-8')
     body = loads(body_unicode)
  
     # Authentification with given credentials
-    # login(request, )
     user = authenticate(request, username = body["username"], password = body["password"])
 
     if user is None:
@@ -128,3 +125,28 @@ def contacto(request):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+def global_profile_entrepreneur(request: HttpRequest):
+    # Connect to the database
+    con = sqlite3.connect("db.sqlite3")
+    cur = con.cursor()
+
+    # Execute an SQL command 
+    data_ex = cur.execute("""SELECT (SUM(question1) + SUM(question2) + SUM(question3) + SUM(question4))  AS Autocontrol,
+	    		       	            (SUM(question5) + SUM(question6) + SUM(question7) + SUM(question8) + SUM(question9) + SUM(question10)) AS Leadership,
+	    		       	            (SUM(question11) + SUM(question12) + SUM(question13) + SUM(question14) + SUM(question15) + SUM(question16) + SUM(question17)) AS "Conscience & Social Value",
+	    		       	            (SUM(question18) + SUM(question19) + SUM(question20) + SUM(question21) + SUM(question22) + SUM(question23) + SUM(question24)) AS "Social Innovation & Financial Sustainability"
+                             FROM app1_survey;""")
+    
+    data = data_ex.fetchall()
+    
+    json_data = {'autocontrol': int(data[0][0]) if data[0][0] is not None else None,
+                 'leadership': int(data[0][1]) if data[0][1] is not None else None,
+                 'conscience_and_social_value': int(data[0][2]) if data[0][2] is not None else None,
+                 'social_innovation_and_financial_sustainability': int(data[0][3]) if data[0][3] is not None else None}
+    
+    return HttpResponse(dumps(json_data), content_type = "application/json")
+                
+
+def global_profile_thinking(request: HttpRequest):
+    pass

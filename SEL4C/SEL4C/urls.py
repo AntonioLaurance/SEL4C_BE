@@ -16,7 +16,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.views.decorators.csrf import csrf_exempt
 from drf_spectacular.views import SpectacularAPIView
 from rest_framework import routers
 from app1 import views
@@ -38,5 +37,6 @@ urlpatterns = [
     path('auth/', views.auth, name = 'auth'),
     path('api-auth/', include('rest_framework.urls', namespace = 'rest_framework')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/graph-social/', views.global_profile_entrepreneur, name = 'graph social'),
     path('logout/',views.logout_user,name='logout'),
 ]

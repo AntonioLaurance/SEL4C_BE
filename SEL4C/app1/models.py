@@ -4,26 +4,31 @@ from django.db import models
 from datetime import timedelta
 from django.utils.text import slugify
 import uuid
+from django.conf import settings
+
 
 # Create your models here.
 class User(AbstractUser):
     # Login information
-    username = models.CharField(max_length=150, unique=False, null=True, blank=True)
-    email = models.EmailField('email address', primary_key=True, null=False, unique=True)
-    second_last_name = models.CharField(max_length=150, null=False, default="")
-    pass_phase = models.CharField(max_length=255, null=True, blank=True)  # Cambié a blank=True
+    username = models.CharField(max_length = 150, primary_key = True, unique = True, null = False, blank = False)
+    email = models.EmailField('email address', null = False, unique = True)
+    second_last_name = models.CharField(max_length = 150, null = False, default = "")
+    pass_phase = models.CharField(max_length = 255, null = True, blank = True)  # Cambié a blank=True
 
     # User Information
-    time_spended = models.DurationField(default=timedelta(days=0, hours=0, minutes=0, seconds=0))
-    verified_at = models.DateTimeField(null=True)
+    time_spended = models.DurationField(default = timedelta(days = 0, hours = 0, minutes = 0, seconds = 0))
+    verified_at = models.DateTimeField(null = True)
 
     # Data analysis
-    age = models.PositiveSmallIntegerField(null=True)
-    genre = models.CharField(max_length=255, null=True)
-    country = models.CharField(max_length=255, null=True)
-    institution = models.CharField(max_length=255, null=True)
-    carrer = models.CharField(max_length=255, null=True)
-    grade = models.CharField(max_length=255, null=True)
+    age = models.PositiveSmallIntegerField(null = True)
+    genre = models.CharField(max_length = 255, null = True)
+    country = models.CharField(max_length = 255, null = True)
+    institution = models.CharField(max_length = 255, null = True)
+    carrer = models.CharField(max_length = 255, null = True)
+    grade = models.CharField(max_length = 255, null = True)
+
+    def natural_key(self):
+        return self.username
 
     # Change the attribute for the login for the user
     USERNAME_FIELD = 'email'
@@ -38,7 +43,7 @@ class User(AbstractUser):
             unique_id = uuid.uuid4().hex[:6].lower()
             self.username = slugify(f"{self.email}-{unique_id}")
 
-        # Cifrar la contraseña (SHA256)
+        # Cifrar la contraseña (pbkdf2_sha256 con 600000 iteraciones)
         User.set_password(self, raw_password = self.password)
         super().save(*args, **kwargs)
 
@@ -81,7 +86,7 @@ class HomeUser(models.Model):
 
 class Session(models.Model):
     # Identification
-    user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE)
+    user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, db_constraint = False)
     ip_address = models.GenericIPAddressField(null = True, blank = False)
 
     # Duration
@@ -96,7 +101,7 @@ class Session(models.Model):
 
 
 class Survey(models.Model):
-    user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE)
+    user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, db_constraint = False)
     date_init = models.DateTimeField(null = False, blank = False)
     date_end = models.DateTimeField(null = False, blank = False)
 
@@ -178,7 +183,7 @@ class Survey(models.Model):
 
 
 class Deliver(models.Model):
-    user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE) # ¿Qué desaparezcan las entregas de un usuario cuando lo eliminamos inmediatamente?
+    user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, db_constraint = False) # ¿Qué desaparezcan las entregas de un usuario cuando lo eliminamos inmediatamente?
     date = models.DateTimeField(null = False, blank = False)
 
     # Types of files that an user can deliver
