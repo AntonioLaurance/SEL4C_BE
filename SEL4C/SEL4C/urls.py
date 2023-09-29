@@ -33,10 +33,11 @@ urlpatterns = [
     path('contacto/', views.contacto, name = 'contacto'),
     path('admin/', admin.site.urls),
     path('login/', views.LoginView.as_view(template_name = 'iniciosesion.html'), name = 'login'),
-    path('api/', include(router.urls)),
     path('auth/', views.auth, name = 'auth'),
+    path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace = 'rest_framework')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/graph-social/', views.global_profile_entrepreneur, name = 'graph social'),
+    path('api/graph-thinking/', views.global_profile_thinking, name = 'graph thinking'),
     path('logout/',views.logout_user,name='logout'),
 ]

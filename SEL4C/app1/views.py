@@ -149,4 +149,22 @@ def global_profile_entrepreneur(request: HttpRequest):
                 
 
 def global_profile_thinking(request: HttpRequest):
-    pass
+    # Connect to the database
+    con = sqlite3.connect("db.sqlite3")
+    cur = con.cursor()
+
+    # Execute an SQL command 
+    data_ex = cur.execute("""SELECT  (SUM(question25) + SUM(question26) + SUM(question27) + SUM(question28)  + SUM(question29) + SUM(question30)) AS "Systemic Thinking",
+				                     (SUM(question31) + SUM(question32) + SUM(question33) + SUM(question34) + SUM(question35) + SUM(question36) + SUM(question37)) AS "Scientific Thinking",
+				                     (SUM(question38) + SUM(question39) + SUM(question40) + SUM(question41) + SUM(question42) + SUM(question43)) AS "Critical Thinking",
+				                     (SUM(question44) + SUM(question45) + SUM(question46) + SUM(question47) + SUM(question48) + SUM(question49)) AS "Innovative Thinking"
+                             FROM app1_survey;""")
+    
+    data = data_ex.fetchall()
+
+    json_data = {'systemic_thinking': int(data[0][0]) if data[0][0] is not None else None,
+                 'scientific_thinking': int(data[0][1]) if data[0][1] is not None else None,
+                 'critical_thinking': int(data[0][2]) if data[0][2] is not None else None,
+                 'innovative_thinking': int(data[0][3]) if data[0][3] is not None else None}
+
+    return HttpResponse(dumps(json_data), content_type = "application/json")
