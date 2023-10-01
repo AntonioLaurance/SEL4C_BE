@@ -1,6 +1,6 @@
 from django.contrib.auth.models import  Group
 from rest_framework import serializers
-from .models import User, HomeUser, Session, Survey, Deliver
+from .models import User, HomeUser, Session, Survey, Deliver, Question, AnswerQuestion
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -8,8 +8,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['email', 'password', 'first_name', 'last_name', 'second_last_name', 
                   'age', 'genre', 'country', 'institution', 'carrer', 'grade']
         
-    
-
 
 class HomeUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,7 +21,7 @@ class HomeUserSerializer(serializers.ModelSerializer):
 class SessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Session
-        fields = ['user', 'ip_address', 'date_init', 'date_end']
+        fields = '__all__'
 
 
 class SurveySerializer(serializers.ModelSerializer):
@@ -44,6 +42,18 @@ class DeliverSerializer(serializers.ModelSerializer):
     class Meta:
         model = Deliver
         fields = ['user', 'date', 'text_file', 'image_file', 'url_file', 'file']
+
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = '__all__'
+
+
+class AnswerQuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnswerQuestion
+        fields = '__all__'
 
 
 class GroupSerializer(serializers.ModelSerializer):

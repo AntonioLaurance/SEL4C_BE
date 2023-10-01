@@ -23,7 +23,8 @@ from app1 import views
 router = routers.DefaultRouter()
 router.register(r'usuarios', views.UserViewSet)
 router.register(r'sesiones', views.SessionViewSet)
-router.register(r'encuestas', views.SurveyViewSet)
+router.register(r'preguntas', views.QuestionViewSet)
+router.register(r'respuestas', views.SurveyViewSet)
 router.register(r'entregas', views.DeliverViewSet)
  
 # Wire op our API using automatic URL routing.
@@ -39,5 +40,5 @@ urlpatterns = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/graph-social/', views.global_profile_entrepreneur, name = 'graph social'),
     path('api/graph-thinking/', views.global_profile_thinking, name = 'graph thinking'),
-    path('logout/',views.logout_user,name='logout'),
+    path('logout/', views.logout_user, name = 'logout'),
 ]

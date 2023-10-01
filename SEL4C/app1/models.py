@@ -36,6 +36,7 @@ class User(AbstractUser):
 
     class Meta:
         swappable = 'AUTH_USER_MODEL'
+        app_label = 'app1'
 
     def save(self, *args, **kwargs):
         # Asignar un valor único al campo username si está en blanco
@@ -86,12 +87,12 @@ class HomeUser(models.Model):
 
 class Session(models.Model):
     # Identification
-    user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, db_constraint = False)
+    user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, to_field = "email")
     ip_address = models.GenericIPAddressField(null = True, blank = False)
 
     # Duration
-    date_init = models.DateTimeField(null = False, blank = False)
-    date_end = models.DateTimeField(null = False, blank = False)
+    date_init = models.DateTimeField(null = True, blank = True)
+    date_end = models.DateTimeField(null = True, blank = True)
 
     def __str__(self):
         return f"{self.user} con dirección IP: {self.ip_address}"
@@ -101,9 +102,9 @@ class Session(models.Model):
 
 
 class Survey(models.Model):
-    user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, db_constraint = False)
-    date_init = models.DateTimeField(null = False, blank = False)
-    date_end = models.DateTimeField(null = False, blank = False)
+    user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, to_field = "email")
+    date_init = models.DateTimeField(null = True, blank = True)
+    date_end = models.DateTimeField(null = True, blank = True)
 
     # -----------------------------------------------------------------------------------------------
     # Social Entrepreneur Profile
@@ -183,7 +184,7 @@ class Survey(models.Model):
 
 
 class Deliver(models.Model):
-    user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, db_constraint = False) # ¿Qué desaparezcan las entregas de un usuario cuando lo eliminamos inmediatamente?
+    user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, to_field = "email") # ¿Qué desaparezcan las entregas de un usuario cuando lo eliminamos inmediatamente?
     date = models.DateTimeField(null = False, blank = False)
 
     # Types of files that an user can deliver
@@ -193,4 +194,25 @@ class Deliver(models.Model):
     file = models.FileField(null = True, blank = True)
 
     class Meta:
+        app_label = "app1"
+
+
+# Questions for the initial and final survey
+class Question(models.Model):
+    survey = models.CharField(max_length = 255, null = True)
+    category = models.CharField(max_length = 255, null = True)
+    sub_category = models.CharField(max_length = 255, null = True)
+    question = models.TextField(null = False, blank = False)
+
+    class Meta:
+        app_label = "app1"
+
+
+# Connect with the survey API
+class AnswerQuestion(models.Model):
+    user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, to_field = "email")
+    question = models.ForeignKey(Question, null = False, blank = False, on_delete = models.PROTECT)
+    answer = models.PositiveSmallIntegerField(null = False, blank = False)
+
+    class Meta: 
         app_label = "app1"

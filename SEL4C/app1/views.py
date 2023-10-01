@@ -3,12 +3,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from app1.models import User, HomeUser, Session, Survey, Deliver
-from app1.serializers import UserSerializer, HomeUserSerializer, SessionSerializer, SurveySerializer, DeliverSerializer, GroupSerializer
+from django.http import HttpRequest, HttpResponse
+from app1.models import *
+from app1.serializers import *
 from rest_framework import viewsets, permissions
+from rest_framework.response import Response
 from json import loads, dumps
 import sqlite3
+import requests
 
 # --------------------------------------------------------------------
 # Create your views here.
@@ -68,7 +70,7 @@ def auth(request: HttpRequest):
 
 class UserViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows users to be viewed or edited.
+    API endpoint that allows users to be created or viewed.
     """
     queryset = User.objects.all().order_by('date_joined')
     serializer_class = UserSerializer
@@ -105,6 +107,35 @@ class DeliverViewSet(viewsets.ModelViewSet):
     serializer_class = DeliverSerializer
     permission_classes = [permissions.IsAdminUser]
 
+class QuestionViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+class AnswerQuestionViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited. It's connected with API '\\respuestas'.
+    """
+    queryset = AnswerQuestion.objects.all()
+    serializer_class = AnswerQuestionSerializer 
+
+    def create(self, *args, **kwargs):
+        # POST to the API /respuestas
+        url = "http://127.0.0.1:8000/api/respuestas/"
+        
+        if(AnswerQuestion.question == 1):
+            requests.post(url = url, json = {})
+        elif(AnswerQuestion.question == 49):
+            # Get the previus answers 
+            requests.put(url = url, json = {})
+        else:
+            # Get the previus answers 
+            requests.put(url = url, json = {})
+
+        return super().create(*args, **kwargs)
+    
 class GroupViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
@@ -124,7 +155,7 @@ def contacto(request):
 @csrf_exempt
 def logout_user(request):
     logout(request)
-    return redirect('login')
+    return redirect('admin')
 
 def global_profile_entrepreneur(request: HttpRequest):
     # Connect to the database
