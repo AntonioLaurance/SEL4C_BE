@@ -25,6 +25,7 @@ router.register(r'usuarios', views.UserViewSet)
 router.register(r'sesiones', views.SessionViewSet)
 router.register(r'preguntas', views.QuestionViewSet)
 router.register(r'respuestas', views.SurveyViewSet)
+router.register(r'respuestas_detalladas', views.AnswerQuestionViewSet)
 router.register(r'entregas', views.DeliverViewSet)
  
 # Wire op our API using automatic URL routing.
@@ -32,6 +33,7 @@ router.register(r'entregas', views.DeliverViewSet)
 urlpatterns = [
     path('', views.index, name = 'index'),
     path('contacto/', views.contacto, name = 'contacto'),
+    path('graficas/', views.graficas, name = 'graficas'),
     path('admin/', admin.site.urls),
     path('login/', views.LoginView.as_view(template_name = 'iniciosesion.html'), name = 'login'),
     path('auth/', views.auth, name = 'auth'),

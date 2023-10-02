@@ -2,15 +2,17 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView
+from django.core.files.storage import FileSystemStorage
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpRequest, HttpResponse
 from app1.models import *
 from app1.serializers import *
+from app1.forms import *
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 from json import loads, dumps
 import sqlite3
-import requests
+import os
 
 # --------------------------------------------------------------------
 # Create your views here.
@@ -74,6 +76,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('date_joined')
     serializer_class = UserSerializer
+    permission_clases = [permissions.AllowAny]
 
 class HomeUserViewSet(viewsets.ModelViewSet):
     """
@@ -113,6 +116,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
     """
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    permission_clases = [permissions.AllowAny]
 
 class AnswerQuestionViewSet(viewsets.ModelViewSet):
     """
@@ -120,21 +124,7 @@ class AnswerQuestionViewSet(viewsets.ModelViewSet):
     """
     queryset = AnswerQuestion.objects.all()
     serializer_class = AnswerQuestionSerializer 
-
-    def create(self, *args, **kwargs):
-        # POST to the API /respuestas
-        url = "http://127.0.0.1:8000/api/respuestas/"
-        
-        if(AnswerQuestion.question == 1):
-            requests.post(url = url, json = {})
-        elif(AnswerQuestion.question == 49):
-            # Get the previus answers 
-            requests.put(url = url, json = {})
-        else:
-            # Get the previus answers 
-            requests.put(url = url, json = {})
-
-        return super().create(*args, **kwargs)
+    permission_clases = [permissions.AllowAny]
     
 class GroupViewSet(viewsets.ModelViewSet):
     """
@@ -151,6 +141,37 @@ def index(request):
 # Contact page
 def contacto(request):
     return render(request, 'contacto.html')
+
+@csrf_exempt
+def UploadFile(request):
+    if request.method == 'POST':
+        form = BlogForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            print(form.fields['author'])
+            return HttpResponse('The file is saved')
+    else:
+        form = BlogForm()
+    context = {'form': form,}
+    return render(request, 'upload.html', context)
+
+@csrf_exempt
+def simple_upload(request):
+    if request.method == 'POST' and request.FILES['file']:
+        usuario =(request.POST['user'])
+        actividad=(request.POST['activity'])
+        nombre_evidencia=(request.POST['evidence_name'])
+        myfile = request.FILES['file']
+        fs = FileSystemStorage()
+        path = os.path.join(fs.location, usuario,actividad, nombre_evidencia, myfile.name)
+        filename = fs.save(path, myfile)
+        uploaded_file_url = fs.url(filename)
+        return HttpResponse('OK')
+        '''return render(request, 'core/simple_upload.html', {
+            'uploaded_file_url': uploaded_file_url
+        })'''
+    return render(request, 'core/simple_upload.html')
+
 
 @csrf_exempt
 def logout_user(request):
@@ -199,3 +220,7 @@ def global_profile_thinking(request: HttpRequest):
                  'innovative_thinking': int(data[0][3]) if data[0][3] is not None else None}
 
     return HttpResponse(dumps(json_data), content_type = "application/json")
+
+
+def graficas(request: HttpRequest):
+    return render(request, 'graficas.html')

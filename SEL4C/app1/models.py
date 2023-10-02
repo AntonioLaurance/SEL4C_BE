@@ -197,12 +197,24 @@ class Deliver(models.Model):
         app_label = "app1"
 
 
+class Blog(models.Model):
+    author = models.CharField(max_length = 100)
+    title = models.CharField(max_length = 200)
+    file = models.FileField(upload_to = 'documents/')
+
+    class Meta:
+        app_label = "app1"
+
+
 # Questions for the initial and final survey
 class Question(models.Model):
     survey = models.CharField(max_length = 255, null = True)
     category = models.CharField(max_length = 255, null = True)
     sub_category = models.CharField(max_length = 255, null = True)
     question = models.TextField(null = False, blank = False)
+    
+    def __str__(self):
+        return f"{self.__getattribute__('id')}"
 
     class Meta:
         app_label = "app1"
@@ -211,7 +223,7 @@ class Question(models.Model):
 # Connect with the survey API
 class AnswerQuestion(models.Model):
     user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, to_field = "email")
-    question = models.ForeignKey(Question, null = False, blank = False, on_delete = models.PROTECT)
+    question = models.ForeignKey(Question, null = False, blank = False, on_delete = models.PROTECT, to_field = "id")
     answer = models.PositiveSmallIntegerField(null = False, blank = False)
 
     class Meta: 

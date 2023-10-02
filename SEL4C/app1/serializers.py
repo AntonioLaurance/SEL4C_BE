@@ -1,6 +1,8 @@
-from django.contrib.auth.models import  Group
+from django.utils import timezone
+from django.contrib.auth.models import Group
 from rest_framework import serializers
-from .models import User, HomeUser, Session, Survey, Deliver, Question, AnswerQuestion
+from .models import *
+import requests
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -53,7 +55,75 @@ class QuestionSerializer(serializers.ModelSerializer):
 class AnswerQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnswerQuestion
-        fields = '__all__'
+        fields = ('id', 'user', 'question', 'answer')
+
+    def create(self, *args, **kwargs):
+        # POST to the API /respuestas
+        url = "http://127.0.0.1:8000/api/respuestas/"
+        
+        # If we start the survey
+        if(AnswerQuestion.question == 1):
+            requests.post(url = url, json = {"user": AnswerQuestion.__getattribute__("user"),
+                                             "date_init": timezone.now().__str__(),
+                                             "date_end": "",
+                                             "question1": AnswerQuestion.__getattribute__("answer"),
+                                             "question2": None,
+                                             "question3": None,
+                                             "question4": None,
+                                             "question5": None,
+                                             "question6": None,
+                                             "question7": None,
+                                             "question8": None,
+                                             "question9": None,
+                                             "question10": None,
+                                             "question11": None,
+                                             "question12": None,
+                                             "question13": None,
+                                             "question14": None,
+                                             "question15": None,
+                                             "question16": None,
+                                             "question17": None,
+                                             "question18": None,
+                                             "question19": None,
+                                             "question20": None,
+                                             "question21": None,
+                                             "question22": None,
+                                             "question23": None,
+                                             "question24": None,
+                                             "question25": None,
+                                             "question26": None,
+                                             "question27": None,
+                                             "question28": None,
+                                             "question29": None,
+                                             "question30": None,
+                                             "question31": None,
+                                             "question32": None,
+                                             "question33": None,
+                                             "question34": None,
+                                             "question35": None,
+                                             "question36": None,
+                                             "question37": None,
+                                             "question38": None,
+                                             "question39": None,
+                                             "question40": None,
+                                             "question41": None,
+                                             "question42": None,
+                                             "question43": None,
+                                             "question44": None,
+                                             "question45": None,
+                                             "question46": None,
+                                             "question47": None,
+                                             "question48": None,
+                                             "question49": None})
+                                            
+        # else:
+        #   # Get the previus answers 
+        #   elif(AnswerQuestion.question == 49):
+        #       requests.put(url = url, json = {})
+        #   else:
+        #       requests.put(url = url, json = {})
+
+        return super().create(*args, **kwargs)
 
 
 class GroupSerializer(serializers.ModelSerializer):

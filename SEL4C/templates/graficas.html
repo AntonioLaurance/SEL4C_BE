@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Barras</title>
+    <!-- Incluye la biblioteca ECharts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.2.2/echarts.min.js"></script>
+</head>
+<body>
+    <!-- Contenedor para el gráfico -->
+    <div id="bar-chart" style="width: 800px; height: 400px;"></div>
+
+    <script>
+        // Inicializa ECharts en el contenedor
+        var chart = echarts.init(document.getElementById('bar-chart'));
+
+        // Datos de tus API
+        var dataEntrepreneur;
+        var dataThinking;
+
+        // Realiza una solicitud AJAX a la primera API
+        fetch('http://127.0.0.1:8000/api/graph-social/')
+            .then(response => response.json())
+            .then(result => {
+                dataEntrepreneur = result;
+
+                // Realiza una solicitud AJAX a la segunda API
+                return fetch('http://127.0.0.1:8000/api/graph-thinking/');
+            })
+            .then(response => response.json())
+            .then(result => {
+                dataThinking = result;
+
+                // Crea el gráfico de barras
+                var option = {
+                    title: {
+                        text: 'Perfil Emprendedor y Pensamiento'
+                    },
+                    tooltip: {},
+                    legend: {
+                        data: ['Emprendedor', 'Pensamiento']
+                    },
+                    xAxis: {
+                        data: ['Autocontrol', 'Liderazgo', 'Conciencia y Valor Social', 'Innovación Social y Sostenibilidad Financiera']
+                    },
+                    yAxis: {},
+                    series: [
+                        {
+                            name: 'Emprendedor',
+                            type: 'bar',
+                            data: [
+                                dataEntrepreneur.autocontrol,
+                                dataEntrepreneur.leadership,
+                                dataEntrepreneur.conscience_and_social_value,
+                                dataEntrepreneur.social_innovation_and_financial_sustainability
+                            ]
+                        },
+                        {
+                            name: 'Pensamiento',
+                            type: 'bar',
+                            data: [
+                                dataThinking.systemic_thinking,
+                                dataThinking.scientific_thinking,
+                                dataThinking.critical_thinking,
+                                dataThinking.innovative_thinking
+                            ]
+                        }
+                    ]
+                };
+
+                // Configura y muestra el gráfico
+                chart.setOption(option);
+            });
+    </script>
+</body>
+</html>
