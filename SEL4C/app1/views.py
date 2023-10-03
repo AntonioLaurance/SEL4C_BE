@@ -188,17 +188,26 @@ def global_profile_entrepreneur(request: HttpRequest):
 
     # Execute an SQL command 
     data_ex = cur.execute("""SELECT (SUM(question1) + SUM(question2) + SUM(question3) + SUM(question4))  AS Autocontrol,
-	    		       	            (SUM(question5) + SUM(question6) + SUM(question7) + SUM(question8) + SUM(question9) + SUM(question10)) AS Leadership,
-	    		       	            (SUM(question11) + SUM(question12) + SUM(question13) + SUM(question14) + SUM(question15) + SUM(question16) + SUM(question17)) AS "Conscience & Social Value",
-	    		       	            (SUM(question18) + SUM(question19) + SUM(question20) + SUM(question21) + SUM(question22) + SUM(question23) + SUM(question24)) AS "Social Innovation & Financial Sustainability"
-                             FROM app1_survey;""")
+	    		                    (SUM(question5) + SUM(question6) + SUM(question7) + SUM(question8) + SUM(question9) + SUM(question10)) AS Leadership,
+	    		                    (SUM(question11) + SUM(question12) + SUM(question13) + SUM(question14) + SUM(question15) + SUM(question16) + SUM(question17)) AS "Conscience & Social Value",
+	    		                    (SUM(question18) + SUM(question19) + SUM(question20) + SUM(question21) + SUM(question22) + SUM(question23) + SUM(question24)) AS "Social Innovation & Financial Sustainability"
+                             FROM app1_survey
+                             GROUP BY app1_survey.num_survey;""")
     
     data = data_ex.fetchall()
     
-    json_data = {'autocontrol': int(data[0][0]) if data[0][0] is not None else None,
-                 'leadership': int(data[0][1]) if data[0][1] is not None else None,
-                 'conscience_and_social_value': int(data[0][2]) if data[0][2] is not None else None,
-                 'social_innovation_and_financial_sustainability': int(data[0][3]) if data[0][3] is not None else None}
+    json_data = {'autocontrol': {'before': int(data[0][0]) if data[0][0] is not None else None,
+                                  'after': int(data[1][0]) if data[1][0] is not None else None},
+
+                 'leadership': {'before': int(data[0][1]) if data[0][1] is not None else None,
+                                 'after': int(data[1][1]) if data[1][1] is not None else None},
+
+                 'conscience_and_social_value': {'before': int(data[0][2]) if data[0][2] is not None else None,
+                                                  'after': int(data[1][2]) if data[1][2] is not None else None},
+
+                 'social_innovation_and_financial_sustainability': {'before': int(data[0][3]) if data[0][3] is not None else None,
+                                                                     'after': int(data[1][3]) if data[1][3] is not None else None}}
+                                                                    
     
     return HttpResponse(dumps(json_data), content_type = "application/json")
                 
@@ -213,14 +222,22 @@ def global_profile_thinking(request: HttpRequest):
 				                     (SUM(question31) + SUM(question32) + SUM(question33) + SUM(question34) + SUM(question35) + SUM(question36) + SUM(question37)) AS "Scientific Thinking",
 				                     (SUM(question38) + SUM(question39) + SUM(question40) + SUM(question41) + SUM(question42) + SUM(question43)) AS "Critical Thinking",
 				                     (SUM(question44) + SUM(question45) + SUM(question46) + SUM(question47) + SUM(question48) + SUM(question49)) AS "Innovative Thinking"
-                             FROM app1_survey;""")
+                             FROM app1_survey
+                             GROUP BY app1_survey.num_survey;""")
     
     data = data_ex.fetchall()
 
-    json_data = {'systemic_thinking': int(data[0][0]) if data[0][0] is not None else None,
-                 'scientific_thinking': int(data[0][1]) if data[0][1] is not None else None,
-                 'critical_thinking': int(data[0][2]) if data[0][2] is not None else None,
-                 'innovative_thinking': int(data[0][3]) if data[0][3] is not None else None}
+    json_data = {'systemic_thinking': {'before': int(data[0][0]) if data[0][0] is not None else None,
+                                        'after': int(data[1][0]) if data[1][0] is not None else None},
+
+                 'scientific_thinking': {'before': int(data[0][1]) if data[0][1] is not None else None,
+                                          'after': int(data[1][1]) if data[1][1] is not None else None},
+
+                 'critical_thinking': {'before': int(data[0][2]) if data[0][2] is not None else None,
+                                        'after': int(data[1][2]) if data[1][2] is not None else None},
+
+                 'innovative_thinking': {'before': int(data[0][3]) if data[0][3] is not None else None,
+                                          'after': int(data[1][3]) if data[1][3] is not None else None}}
 
     return HttpResponse(dumps(json_data), content_type = "application/json")
 

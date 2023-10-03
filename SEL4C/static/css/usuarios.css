@@ -1,0 +1,134 @@
+body {
+    background-color: #000000;
+    font-family: Montserrat, Semibold;
+    margin: 0;
+    padding: 0;
+  }
+  /* Estilos del encabezado */
+  header {
+    align-items: center;
+    background-color: #000000;
+    color: #fff;
+    display: flex;
+    font-family: Montserrat, Semibold;
+    justify-content: space-between;
+    padding: 40px 20px;
+  }
+  .buttons .btn {
+    color: #ffffff;
+    margin-right: 0px;
+    padding: 8px 15px;
+    text-decoration: none;
+  }
+  .login-btn .btn {
+    background-color: #0057A7;
+    border: 1px solid #0057A7;
+    border-radius: 20px;
+    color: #ffffff;
+    margin-right: 10px;
+    padding: 8px 15px;
+    text-decoration: none;
+  }
+  .logo {
+    align-items: center;
+    display: flex;
+  }
+  .logo h1 {
+    margin: 0;
+  }
+  .logo img {
+    margin-right: 20px;
+    /* Espacio entre el logo y el título */
+    width: 40px;
+    /* Ajusta el tamaño del logo según tus necesidades */
+  }
+  .leyenda {
+    text-align: center;
+    background-color: #000000;
+    color: #fff;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  main{
+    display: grid;
+    padding: 20px;
+ }
+ /*FORM*/
+ #formContainer{
+    background-color: black;
+    padding: 20px;
+    color: white;
+ }
+ #formContainer > h1{
+    text-align: center;
+    margin-bottom: 20 px;
+ }
+ #formContainer > form{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+ }
+ #formContainer > form > input{
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+ }
+ #formContainer > form > button{
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 50px;
+    border: none;
+    background-color: aquamarine;
+ }
+ #formContainer > form > button:hover{
+   cursor: pointer;
+   transform: scale(0.97);
+ }
+ /*TABLE*/
+
+ #tableContainer{
+    background-color: black;
+ }
+
+ table, td, th, tr{
+    border: 1px solid white;
+    border-collapse: collapse;
+    color: white;
+ }
+ table{
+   width: 100%;
+ }
+ th{
+    background-color: #000000;
+    color: white;
+    padding: 10px, 5px;
+ }
+td{
+   padding: 10px 5px;
+}
+/*BREAKPOINTS*/
+ @media only screen and (max-width: 600px) {
+    main{
+        grid-template-columns: 1fr;
+     }
+ }
+ @media only screen and (max-width: 600px) {
+   main{
+      grid-template-columns: 1fr;
+   }
+ }
+ @media only screen and (max-width: 992px) {
+   main{
+      grid-template-columns: 1fr;
+   }
+ }
+ @media only screen and (max-width: 1200px) {
+   main{
+      grid-template-columns: 1fr;
+   }
+ }
+
+

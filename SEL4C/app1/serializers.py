@@ -29,7 +29,7 @@ class SessionSerializer(serializers.ModelSerializer):
 class SurveySerializer(serializers.ModelSerializer):
     class Meta:
         model = Survey
-        fields = ['user', 'date_init', 'date_end',                                                                          # Information
+        fields = ['user', 'num_survey', 'date_init', 'date_end',                                                                          # Information
                   'question1', 'question2', 'question3', 'question4',                                                       # Autocontrol 
                   'question5', 'question6', 'question7', 'question8', 'question9', 'question10',                            # Leadership
                   'question11', 'question12', 'question13', 'question14', 'question15', 'question16', 'question17',         # Conscience and social value
