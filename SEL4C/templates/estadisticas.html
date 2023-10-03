@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin</title>
+  <!-- Bootstrap
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  Styles -->
+  <link rel="stylesheet" href="estadisticas.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.2.2/echarts.min.js"></script>
+</head>
+
+
+<body>
+  <header>
+    <div class="logo">
+      <img src="images/Logo.png" alt="Logo del Sitio">
+      <h1>SEL4C</h1>
+    </div>
+    <div class="buttons">
+      <a href="menuadmin.html" class="btn">INICIO</a>
+      <a href="estadisticas.html" class="btn">ESTADISTICAS</a>
+      <a href="administracion.html" class="btn">ADMINISTRACION</a>
+    </div>
+    <div class="login-btn">
+      <a href="menu.html" class="btn">CERRAR SESION</a>
+    </div>
+  </header>
+
+  <!--
+  <div class="container">
+      <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div id="chart1" class="chart"></div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div id="chart2" class="chart"></div>
+            </div>
+      </div>
+  </div> 
+  -->
+
+<!-- Contenedor para el gráfico -->
+<div id="bar-chart" style="width: 800px; height: 400px;"></div>
+
+<script>
+    // Inicializa ECharts en el contenedor
+    var chart = echarts.init(document.getElementById('bar-chart'));
+
+    // Datos de tus API
+    var dataEntrepreneur;
+    var dataThinking;
+
+    // Realiza una solicitud AJAX a la primera API
+    fetch('/ruta-de-tu-api-entrepreneur/')
+        .then(response => response.json())
+        .then(result => {
+            dataEntrepreneur = result;
+
+            // Realiza una solicitud AJAX a la segunda API
+            return fetch('/ruta-de-tu-api-thinking/');
+        })
+        .then(response => response.json())
+        .then(result => {
+            dataThinking = result;
+
+            // Crea el gráfico de barras
+            var option = {
+                title: {
+                    text: 'Perfil Emprendedor y Pensamiento'
+                },
+                tooltip: {},
+                legend: {
+                    data: ['Emprendedor', 'Pensamiento']
+                },
+                xAxis: {
+                    data: ['Autocontrol', 'Liderazgo', 'Conciencia y Valor Social', 'Innovación Social y Sostenibilidad Financiera']
+                },
+                yAxis: {},
+                series: [
+                    {
+                        name: 'Emprendedor',
+                        type: 'bar',
+                        data: [
+                            dataEntrepreneur.autocontrol,
+                            dataEntrepreneur.leadership,
+                            dataEntrepreneur.conscience_and_social_value,
+                            dataEntrepreneur.social_innovation_and_financial_sustainability
+                        ]
+                    },
+                    {
+                        name: 'Pensamiento',
+                        type: 'bar',
+                        data: [
+                            dataThinking.systemic_thinking,
+                            dataThinking.scientific_thinking,
+                            dataThinking.critical_thinking,
+                            dataThinking.innovative_thinking
+                        ]
+                    }
+                ]
+            };
+
+            // Configura y muestra el gráfico
+            chart.setOption(option);
+        });
+</script>
+
+  <!--
+  Bootstrap 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  Apache echarts 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+  Javascript 
+  <script src="main.js"></script>
+  -->
+
+  <div class="leyenda">
+    2023 - Tec de Monterrey - Política de Privacidad
+</body>
+</html>

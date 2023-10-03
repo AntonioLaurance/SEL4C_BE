@@ -135,8 +135,11 @@ class GroupViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 # Home page    
-def index(request):
-    return render(request, 'index.html')
+def index(request: HttpRequest):
+    if (request.user.is_staff):
+        return render(request, 'menuadmin.html')
+    else:
+        return render(request, 'index.html')
 
 # Contact page
 def contacto(request):
@@ -221,6 +224,11 @@ def global_profile_thinking(request: HttpRequest):
 
     return HttpResponse(dumps(json_data), content_type = "application/json")
 
+def panel_users(request: HttpRequest):
+    if (request.user.is_staff):
+        return render(request, 'administracion.html')
+    else:
+        return HttpResponse("<h1>Panel de usuarios</h1>Acceso no autorizado")
 
 def graficas(request: HttpRequest):
     return render(request, 'graficas.html')

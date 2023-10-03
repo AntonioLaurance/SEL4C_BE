@@ -6,43 +6,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contacto</title>
   <link rel="stylesheet" href="{% static 'css/contacto.css' %}">
+  <title>Contacto</title>
 </head>
-
-<!-- header y botones -->
 
 <body>
   <header>
-    <div class="logo-and-nav">
-      <img src="{% static 'images/SEL4C.png' %}" alt="Logo">
-      <h1 class="logo">SEL4C</h1>
+    <div class="logo">
+      <img src="{% static 'images/SEL4C.png' %}" alt="Logo del Sitio">
+      <h1>SEL4C</h1>
     </div>
-    <div class="nav-buttons">
-      <a href="{% url 'index' %}" class="nav-button">INICIO</a>
-      <a href="{% url 'contacto' %}" class="nav-button">CONTACTO</a>
+    <div class="buttons">
+      <a href="{% url 'index' %}" class="btn">INICIO</a>
+      <a href="{% url 'contacto' %}" class="btn">CONTACTO</a>
     </div>
-
-    <a href="{% url 'login' %}" class="nav-button2 login-button">INICIAR SESION</a>
+    <div class="login-btn">
+      <a href="{% url 'login' %}" class="btn">INICIAR SESION</a>
+    </div>
   </header>
 
-  <!-- TEXTO -->
-  <div class="content">
-    <div class="text-container">
-      <p class="bigger-text">CONTACTO</p>
-      <p class="small-text">¿Tienes alguna duda? Te dejamos nuestros enlaces para poder mandarnos tus dudas y en breve te respondemos.</p>
-    </div>
-  <div class="content">
-    <div class="text-container">
-      <p class="big-text">Utiliza las siguientes vías de contacto.</p>
-      <p class="text-contact">Vía E-mail</p>
-      <p class="links">sel4cquipo10@gmail.com</p>
-      <p class="text-contact1">En nuestras redes sociales</p>
-      <p class="links1">@SEL4CEquipo10</p>
-      <p class="leyenda">2023 - Tec de Monterrey - Política de Privacidad</p>
-  </div>
-</body>
-</html>
-</body>
+  <!-- Resto del contenido de la página -->
 
+    <div class="contenedor">
+      <h1 class="titulo">Contacto</h1>
+      <p class="descripcion-gris">
+          ¿Tienes alguna duda? Te dejamos nuestros enlaces para poder mandarnos tus dudas y en breve te respondemos.
+      </p>
+      <p class="descripcion" style = "color: white;">
+          Utiliza las siguientes vías de contacto.
+      </p>
+      <p class="descripcion-blancas">
+          Vía E-mail
+      </p>
+      <p class="descripcion-azul">
+          <a href="mailto:sel4cquipo10@gmail.com" class="enlace-azul">sel4cquipo10@gmail.com</a>
+      </p>
+      <p class="descripcion-blancas">
+          En nuestras redes sociales
+      </p>
+      <p class="descripcion-azul">
+          <a href="https://twitter.com/SEL4CEquipo10" class="enlace-azul" target="_blank">@SEL4CEquipo10</a>
+        </p>
+    </div>
+  
+  <div class="leyenda">
+    2023 - Tec de Monterrey - Política de Privacidad
+</body>
 </html>

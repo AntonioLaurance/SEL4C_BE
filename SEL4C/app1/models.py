@@ -103,6 +103,7 @@ class Session(models.Model):
 
 class Survey(models.Model):
     user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, to_field = "email")
+    num_survey = models.PositiveSmallIntegerField(null = True)
     date_init = models.DateTimeField(null = True, blank = True)
     date_end = models.DateTimeField(null = True, blank = True)
 
@@ -223,6 +224,7 @@ class Question(models.Model):
 # Connect with the survey API
 class AnswerQuestion(models.Model):
     user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, to_field = "email")
+    num_survey = models.PositiveSmallIntegerField(null = False)
     question = models.ForeignKey(Question, null = False, blank = False, on_delete = models.PROTECT, to_field = "id")
     answer = models.PositiveSmallIntegerField(null = False, blank = False)
 

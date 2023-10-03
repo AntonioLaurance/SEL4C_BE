@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ADMIN USERS</title>
+        <link rel="stylesheet" href="administracion.css">\
+        <script src="https://kit.fontawesome.com/2442e3d35a.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+              <img src="images/Logo.png" alt="Logo del Sitio">
+              <h1>SEL4C</h1>
+            </div>
+            <div class="buttons">
+              <a href="menuadmin.html" class="btn">INICIO</a>
+              <a href="estadisticas.html" class="btn">ESTADISTICAS</a>
+              <a href="administracion.html" class="btn">ADMINISTRACION</a>
+            </div>
+            <div class="login-btn">
+              <a href="menu.html" class="btn">CERRAR SESION</a>
+            </div>
+          </header>
+        <main>
+            <section id="formContainer">
+                <h1>USUARIOS</h1>
+                <form>
+                    <label for="inNickName">Usuario</label>
+                    <input id="inNickName" type="text" placeholder="Nombre de Usuario" />
+                    <label for="inEmail">Correo Electronico</label>
+                    <input id="inEmail" type="email" placeholder="sel4c@example.com" />
+                    <label for="inPassword">Password</label>
+                    <input id="inPassword" type="text" placeholder="Contraseña" />
+                    <button id="btnAddUpdate" type="submit">Agregar Usuario</button>
+                </form>
+            </section>
+            <section  id="tableContainer">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>Usuario</th>
+                            <th>Correo</th>
+                            <th>Contraseña</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    <script src="js/model/User.js"></script>
+    <script src="js/controller/user.js"></script>
+    <script src="js/index.js"></script>
+    </body>
+</html>

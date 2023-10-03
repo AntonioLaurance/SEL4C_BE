@@ -1,0 +1,71 @@
+/* Estilos generales */
+body {
+    background-color: #000000;
+    font-family: Montserrat, Semibold;
+    margin: 0;
+    padding: 0px;
+  }
+
+  /* Estilos del encabezado */
+  header {
+    align-items: center;
+    background-color: #000000;
+    color: #fff;
+    display: flex;
+    font-family: Montserrat, Semibold;
+    justify-content: space-between;
+    padding: 35px 10px;
+  }
+
+  .buttons .btn {
+    color: #ffffff;
+    margin-right: 0px;
+    padding: 8px 15px;
+    text-decoration: none;
+  }
+
+  .login-btn .btn {
+    background-color: #0057A7;
+    border: 1px solid #0057A7;
+    border-radius: 20px;
+    color: #ffffff;
+    margin-right: 10px;
+    padding: 8px 15px;
+    text-decoration: none;
+  }
+
+  .logo {
+    align-items: center;
+    display: flex;
+  }
+
+  .logo h1 {
+    margin: 0;
+  }
+
+  .logo img {
+    margin-right: 20px;
+    /* Espacio entre el logo y el título */
+    width: 40px;
+    /* Ajusta el tamaño del logo según tus necesidades */
+  }
+
+  .leyenda {
+    text-align: center;
+    background-color: #000000;
+    color: #ffffff78;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+/* GRAFICA 
+
+.chart {
+  width: 100%;
+  min-height: 400px;
+}
+
+*/

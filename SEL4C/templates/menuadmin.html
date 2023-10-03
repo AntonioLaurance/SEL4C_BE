@@ -6,8 +6,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/menu.css' %}">
-  <title>SEL4C</title>
+  <link rel="stylesheet" href="{% static 'css/menuadmin.css' %}">
+  <title>Admin</title>
 </head>
 
 <body>
@@ -18,24 +18,25 @@
     </div>
     <div class="buttons">
       <a href="{% url 'index' %}" class="btn">INICIO</a>
-      <a href="{% url 'contacto' %}" class="btn">CONTACTO</a>
+      <a href="estadisticas.html" class="btn">ESTADISTICAS</a>
+      <a href="administracion.html" class="btn">ADMINISTRACION</a>
     </div>
     <div class="login-btn">
-      <a href="{% url 'login' %}" class="btn">INICIAR SESION</a>
+      <a href="{% url 'logout' %}" class="btn">CERRAR SESION</a>
     </div>
   </header>
 
   <!-- Resto del contenido de la página -->
-
   <div class="container-left">
-      <h1 class="texto-grande">IMPORTANCIA DE GENERAR VALOR SOCIAL</h1>
-      <p class="texto-small">CONTRIBUIR CON LA INNOVACION EDUCATIVA PARA EL EMPRENDIMIENTO SOCIAL Y EL PENSAMIENTO COMPLEJO, PARA PROMOVER EL APRENDIZAJE ADAPTATIVO A LAS NECESIDADES DE LOS ESTUDIANTES</p>
+    <h1 class="texto-grande">IMPORTANCIA DE GENERAR VALOR SOCIAL</h1>
+    <p class="texto-small">CONTRIBUIR CON LA INNOVACION EDUCATIVA PARA EL EMPRENDIMIENTO SOCIAL Y EL PENSAMIENTO COMPLEJO, PARA PROMOVER EL APRENDIZAJE ADAPTATIVO A LAS NECESIDADES DE LOS ESTUDIANTES</p>
   </div>
 
   <div class="container-right">
     <img class="imagen" src="{% static 'images/Celular.png' %}" alt="Foto Celular">
   </div>
-  
+
+
   <div class="leyenda">
     2023 - Tec de Monterrey - Política de Privacidad
 </body>
