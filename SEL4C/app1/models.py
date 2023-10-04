@@ -184,15 +184,13 @@ class Survey(models.Model):
         app_label = "app1"
 
 
+# Entregas del texto de las preguntas de las actividades de la aplicación
 class Deliver(models.Model):
     user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, to_field = "email") # ¿Qué desaparezcan las entregas de un usuario cuando lo eliminamos inmediatamente?
-    date = models.DateTimeField(null = False, blank = False)
+    date = models.DateTimeField(null = True, blank = True)
 
-    # Types of files that an user can deliver
-    text_file = models.TextField(null = True, blank = True)
-    image_file = models.ImageField(null = True, blank = True)
-    url_file = models.URLField(null = True, blank = True)
-    file = models.FileField(null = True, blank = True)
+    question = models.TextField(null = False, blank = False)
+    answer = models.TextField(null = False, blank = False)
 
     class Meta:
         app_label = "app1"

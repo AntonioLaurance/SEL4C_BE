@@ -101,15 +101,15 @@ class SurveyViewSet(viewsets.ModelViewSet):
     """
     queryset = Survey.objects.all()
     serializer_class = SurveySerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.AllowAny]
 
 class DeliverViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-    queryset = Deliver.objects.all()
+    queryset = Deliver.objects.all().order_by('id')
     serializer_class = DeliverSerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.AllowAny]
 
 class QuestionViewSet(viewsets.ModelViewSet):
     """
@@ -251,7 +251,7 @@ def panel_users(request: HttpRequest):
 def graficas(request: HttpRequest):
     return render(request, 'graficas.html')
 
-def profile_entrepreneur(request, user_email):
+def profile_entrepreneur(request: HttpRequest, user_email: str):
     # Filtrar por email
     surveys = Survey.objects.filter(user__email=user_email)
 
@@ -271,7 +271,7 @@ def profile_entrepreneur(request, user_email):
 
     return JsonResponse(data)
 
-def profile_thinking(request, user_email):
+def profile_thinking(request: HttpRequest, user_email: str):
     # Filtrar los resultados que coinciden con el correo dado
     results = Survey.objects.filter(user__email=user_email)
 

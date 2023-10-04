@@ -43,7 +43,7 @@ class SurveySerializer(serializers.ModelSerializer):
 class DeliverSerializer(serializers.ModelSerializer):
     class Meta:
         model = Deliver
-        fields = ['user', 'date', 'text_file', 'image_file', 'url_file', 'file']
+        fields = ['user', 'date', 'question', 'answer']
 
 
 class QuestionSerializer(serializers.ModelSerializer):
