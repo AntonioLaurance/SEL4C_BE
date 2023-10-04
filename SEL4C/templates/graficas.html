@@ -3,44 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráfico de Barras</title>
+    <title>Gráficos de Barras</title>
     <!-- Incluye la biblioteca ECharts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.2.2/echarts.min.js"></script>
 </head>
 <body>
-    <!-- Contenedor para el gráfico -->
-    <div id="bar-chart" style="width: 800px; height: 400px;"></div>
+    <!-- Contenedores para los gráficos -->
+    <div id="entrepreneur-chart" style="width: 400px; height: 400px; float: left;"></div>
+    <div id="thinking-chart" style="width: 400px; height: 400px; float: left;"></div>
 
     <script>
-        // Inicializa ECharts en el contenedor
-        var chart = echarts.init(document.getElementById('bar-chart'));
+        // Inicializa ECharts en los contenedores
+        var entrepreneurChart = echarts.init(document.getElementById('entrepreneur-chart'));
+        var thinkingChart = echarts.init(document.getElementById('thinking-chart'));
 
         // Datos de tus API
         var dataEntrepreneur;
         var dataThinking;
 
-        // Realiza una solicitud AJAX a la primera API
-        fetch('http://127.0.0.1:8000/api/graph-social/')
+        // Realiza una solicitud AJAX a la primera API (perfil emprendedor)
+        fetch('/api/graph-social/')
             .then(response => response.json())
             .then(result => {
                 dataEntrepreneur = result;
 
-                // Realiza una solicitud AJAX a la segunda API
-                return fetch('http://127.0.0.1:8000/api/graph-thinking/');
-            })
-            .then(response => response.json())
-            .then(result => {
-                dataThinking = result;
-
-                // Crea el gráfico de barras
-                var option = {
+                // Crea el gráfico de barras para perfil emprendedor
+                var entrepreneurOption = {
                     title: {
-                        text: 'Perfil Emprendedor y Pensamiento Complejo'
+                        text: 'Perfil Emprendedor'
                     },
                     tooltip: {},
-                    legend: {
-                        data: ['Emprendedor', 'Pensamiento']
-                    },
                     xAxis: {
                         data: ['Autocontrol', 'Liderazgo', 'Conciencia y Valor Social', 'Innovación Social y Sostenibilidad Financiera']
                     },
@@ -55,7 +47,31 @@
                                 dataEntrepreneur.conscience_and_social_value,
                                 dataEntrepreneur.social_innovation_and_financial_sustainability
                             ]
-                        },
+                        }
+                    ]
+                };
+
+                // Configura y muestra el gráfico para perfil emprendedor
+                entrepreneurChart.setOption(entrepreneurOption);
+            });
+
+        // Realiza una solicitud AJAX a la segunda API (perfil pensamiento)
+        fetch('/api/graph-thinking/')
+            .then(response => response.json())
+            .then(result => {
+                dataThinking = result;
+
+                // Crea el gráfico de barras para perfil pensamiento
+                var thinkingOption = {
+                    title: {
+                        text: 'Perfil de Pensamiento'
+                    },
+                    tooltip: {},
+                    xAxis: {
+                        data: ['Pensamiento Sistémico', 'Pensamiento Científico', 'Pensamiento Crítico', 'Pensamiento Innovador']
+                    },
+                    yAxis: {},
+                    series: [
                         {
                             name: 'Pensamiento',
                             type: 'bar',
@@ -69,8 +85,8 @@
                     ]
                 };
 
-                // Configura y muestra el gráfico
-                chart.setOption(option);
+                // Configura y muestra el gráfico para perfil pensamiento
+                thinkingChart.setOption(thinkingOption);
             });
     </script>
 </body>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficos de Barras (Antes y Después de la Encuesta)</title>
+    <!-- Incluye la biblioteca ECharts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.2.2/echarts.min.js"></script>
+</head>
+<body>
+    <!-- Formulario de búsqueda por correo electrónico -->
+    <form id="email-form">
+        <label for="email">Ingresa tu correo electrónico:</label>
+        <input type="text" id="email" name="email">
+        <button type="button" id="search-button">Buscar</button>
+    </form>
+
+    <!-- Contenedores para los gráficos -->
+    <div id="entrepreneur-chart" style="width: 400px; height: 400px; float: left;"></div>
+    <div id="thinking-chart" style="width: 400px; height: 400px; float: left;"></div>
+
+    <script>
+        // Inicializa ECharts en los contenedores
+        var entrepreneurChart = echarts.init(document.getElementById('entrepreneur-chart'));
+        var thinkingChart = echarts.init(document.getElementById('thinking-chart'));
+
+        // Función para realizar la solicitud AJAX a la API y actualizar los gráficos
+        function updateCharts(email) {
+            // Realiza la solicitud AJAX a la API para el perfil emprendedor
+            fetch(`/api/unique-graph-social/${email}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Configura el gráfico para el perfil emprendedor
+                    var entrepreneurOption = {
+                        title: {
+                            text: 'Perfil Emprendedor (Antes y Después de la Encuesta)'
+                        },
+                        tooltip: {},
+                        xAxis: {
+                            data: ['Autocontrol', 'Liderazgo', 'Conciencia y Valor Social', 'Innovación Social y Sostenibilidad Financiera']
+                        },
+                        yAxis: {},
+                        series: [
+                            {
+                                name: 'Antes',
+                                type: 'bar',
+                                data: [
+                                    data.autocontrol.before,
+                                    data.leadership.before,
+                                    data.conscience_and_social_value.before,
+                                    data.social_innovation_and_financial_sustainability.before
+                                ]
+                            },
+                            {
+                                name: 'Después',
+                                type: 'bar',
+                                data: [
+                                    data.autocontrol.after,
+                                    data.leadership.after,
+                                    data.conscience_and_social_value.after,
+                                    data.social_innovation_and_financial_sustainability.after
+                                ]
+                            }
+                        ]
+                    };
+
+                    // Configura y muestra el gráfico para el perfil emprendedor
+                    entrepreneurChart.setOption(entrepreneurOption);
+                });
+
+            // Realiza la solicitud AJAX a la API para el perfil de pensamiento
+            fetch(`/api/unique-graph-thinking/${email}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Configura el gráfico para el perfil de pensamiento
+                    var thinkingOption = {
+                        title: {
+                            text: 'Perfil de Pensamiento (Antes y Después de la Encuesta)'
+                        },
+                        tooltip: {},
+                        xAxis: {
+                            data: ['Pensamiento Sistémico', 'Pensamiento Científico', 'Pensamiento Crítico', 'Pensamiento Innovador']
+                        },
+                        yAxis: {},
+                        series: [
+                            {
+                                name: 'Antes',
+                                type: 'bar',
+                                data: [
+                                    data.systemic_thinking.before,
+                                    data.scientific_thinking.before,
+                                    data.critical_thinking.before,
+                                    data.innovative_thinking.before
+                                ]
+                            },
+                            {
+                                name: 'Después',
+                                type: 'bar',
+                                data: [
+                                    data.systemic_thinking.after,
+                                    data.scientific_thinking.after,
+                                    data.critical_thinking.after,
+                                    data.innovative_thinking.after
+                                ]
+                            }
+                        ]
+                    };
+
+                    // Configura y muestra el gráfico para el perfil de pensamiento
+                    thinkingChart.setOption(thinkingOption);
+                });
+        }
+
+        // Manejo del evento de clic en el botón de búsqueda
+        document.getElementById('search-button').addEventListener('click', function() {
+            var email = document.getElementById('email').value;
+            updateCharts(email);
+        });
+
+        // Opcional: Puedes realizar una solicitud inicial si tienes un valor de correo electrónico predeterminado
+        // var defaultEmail = "correo@ejemplo.com";
+        // updateCharts(defaultEmail);
+    </script>
+</body>
+</html>

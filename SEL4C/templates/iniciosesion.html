@@ -35,7 +35,7 @@
 
             <form action = "{% url 'login' %}" method = "post">
 
-            <div class="login-form">
+            <form class="login-form">
                 <div class="control-group">
                     <input type="text" class="login-field" value="" placeholder="e-mail" id="login-name">
                     <label class="login-field-icon fui-user" for="login-name"></label>
@@ -44,8 +44,8 @@
                         <input type="password" class="login-field" value="" placeholder="password" id="login-pass">
                         <label class="login-field-icon fui-lock" for="login-pass"></label>
                     </div>
-                <a class="btn2 btn-primary btn-large btn-block" href="{% url 'index' %}">ENVIAR</a>
-            </div>
+                <button class="btn2 btn-primary btn-large btn-block" href="{% url 'index' %}">ENVIAR</a>
+            </form>
         </div>
     </div>
 
