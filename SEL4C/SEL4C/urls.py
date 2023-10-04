@@ -43,8 +43,8 @@ urlpatterns = [
     path('api/graph-social/', views.global_profile_entrepreneur, name = 'graph social'),
     path('api/graph-thinking/', views.global_profile_thinking, name = 'graph thinking'),
     path('logout/', views.logout_user, name = 'logout'),
-    path('api/graph-social/<str:user_email>/', views.profile_entrepreneur, name='profile_entrepreneur'),
-    path('api/graph-thinking/<str:user_email>/', views.profile_thinking, name='profile_thinking'),
+    path('api/unique-graph-social/<str:user_email>/', views.unique_profile_entrepreneur, name='profile_entrepreneur'),
+    path('api/unique-graph-thinking/<str:user_email>/', views.unique_profile_thinking, name='profile_thinking'),
 ]
 
 
