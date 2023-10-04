@@ -13,6 +13,7 @@ from rest_framework.response import Response
 from json import loads, dumps
 import sqlite3
 import os
+from django.http import JsonResponse
 
 # --------------------------------------------------------------------
 # Create your views here.
@@ -249,3 +250,48 @@ def panel_users(request: HttpRequest):
 
 def graficas(request: HttpRequest):
     return render(request, 'graficas.html')
+
+def profile_entrepreneur(request, user_email):
+    # Filtrar por email
+    surveys = Survey.objects.filter(user__email=user_email)
+
+    # Suma las preguntas para cada categoría
+    autocontrol = sum([getattr(s, f'question{i}') for i in range(1, 5) for s in surveys])
+    leadership = sum([getattr(s, f'question{i}') for i in range(5, 11) for s in surveys])
+    conscience_and_social_value = sum([getattr(s, f'question{i}') for i in range(11, 18) for s in surveys])
+    social_innovation_and_financial_sustainability = sum([getattr(s, f'question{i}') for i in range(18, 25) for s in surveys])
+
+    # Preparar los datos en formato JSON
+    data = {
+        'autocontrol': autocontrol,
+        'leadership': leadership,
+        'conscience_and_social_value': conscience_and_social_value,
+        'social_innovation_and_financial_sustainability': social_innovation_and_financial_sustainability
+    }
+
+    return JsonResponse(data)
+
+def profile_thinking(request, user_email):
+    # Filtrar los resultados que coinciden con el correo dado
+    results = Survey.objects.filter(user__email=user_email)
+
+    # Sumar las respuestas de las preguntas
+    systemic_thinking = sum([getattr(obj, f'question{i}') for i in range(25, 31) for obj in results])
+    scientific_thinking = sum([getattr(obj, f'question{i}') for i in range(31, 38) for obj in results])
+    critical_thinking = sum([getattr(obj, f'question{i}') for i in range(38, 44) for obj in results])
+    innovative_thinking = sum([getattr(obj, f'question{i}') for i in range(44, 50) for obj in results])
+
+    # Crear el objeto JSON con los datos
+    data = {
+        'systemic_thinking': systemic_thinking,
+        'scientific_thinking': scientific_thinking,
+        'critical_thinking': critical_thinking,
+        'innovative_thinking': innovative_thinking
+    }
+
+    # Devolver la lista como un objeto JSON
+    return JsonResponse(data, safe=False)
+
+
+
+
