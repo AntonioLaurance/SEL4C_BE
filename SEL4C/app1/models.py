@@ -234,6 +234,7 @@ class AnswerQuestion(models.Model):
     class Meta: 
         app_label = "app1"
 
+"""
 class User(models.Model):
     username = models.CharField(max_length=100)
     email = models.EmailField()
@@ -241,3 +242,4 @@ class User(models.Model):
 
     def __str__(self):
         return self.username
+"""

@@ -3,9 +3,10 @@ import User from '../model/User'
 let users = [];
 
 function loadUsers(){
-    fetch('api/user_data')
+    fetch('/api/user_data/')
         .then(response => response.json())
         .then(data => {
+            console.log(userData.username);
             users = data.map(userData => new User(userData.username, userData.email, userData.password));
         })
         .catch(error => {
