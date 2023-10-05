@@ -22,7 +22,7 @@
         var dataThinking;
 
         // Realiza una solicitud AJAX a la primera API (perfil emprendedor)
-        fetch('/api/graph-social/')
+        fetch('http://127.0.0.1:8000/api/graph-social/')
             .then(response => response.json())
             .then(result => {
                 dataEntrepreneur = result;
@@ -56,7 +56,7 @@
             });
 
         // Realiza una solicitud AJAX a la segunda API (perfil pensamiento)
-        fetch('/api/graph-thinking/')
+        fetch('http://127.0.0.1:8000/api/graph-thinking/')
             .then(response => response.json())
             .then(result => {
                 dataThinking = result;

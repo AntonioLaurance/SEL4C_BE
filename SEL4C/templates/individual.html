@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráficos de Barras (Antes y Después de la Encuesta)</title>
+    <title>Estadísticas Individuales</title>
     <!-- Incluye la biblioteca ECharts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.2.2/echarts.min.js"></script>
 </head>
@@ -16,8 +16,8 @@
     </form>
 
     <!-- Contenedores para los gráficos -->
-    <div id="entrepreneur-chart" style="width: 400px; height: 400px; float: left;"></div>
-    <div id="thinking-chart" style="width: 400px; height: 400px; float: left;"></div>
+    <div id="entrepreneur-chart" style="width: 1600px; height: 400px; float: left;"></div>
+    <div id="thinking-chart" style="width: 1600px; height: 400px; float: left;"></div>
 
     <script>
         // Inicializa ECharts en los contenedores
@@ -33,7 +33,7 @@
                     // Configura el gráfico para el perfil emprendedor
                     var entrepreneurOption = {
                         title: {
-                            text: 'Perfil Emprendedor (Antes y Después de la Encuesta)'
+                            text: 'Perfil Emprendedor'
                         },
                         tooltip: {},
                         xAxis: {
@@ -75,7 +75,7 @@
                     // Configura el gráfico para el perfil de pensamiento
                     var thinkingOption = {
                         title: {
-                            text: 'Perfil de Pensamiento (Antes y Después de la Encuesta)'
+                            text: 'Pensamiento Complejo'
                         },
                         tooltip: {},
                         xAxis: {

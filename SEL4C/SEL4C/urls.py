@@ -35,6 +35,8 @@ urlpatterns = [
     path('contacto/', views.contacto, name = 'contacto'),
     path('registro/', views.register, name = 'registro'),
     path('graficas/', views.graficas, name = 'graficas'),
+    path('usuarios/', views.panel_users, name = 'usuarios'),
+    path('estadisticas/', views.statistics, name = 'estadisticas'),
     path('admin/', admin.site.urls),
     path('login/', views.LoginView.as_view(template_name = 'iniciosesion.html'), name = 'login'),
     path('auth/', views.auth, name = 'auth'),

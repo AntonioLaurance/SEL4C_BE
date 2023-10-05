@@ -18,8 +18,8 @@
     </div>
     <div class="buttons">
       <a href="{% url 'index' %}" class="btn">INICIO</a>
-      <a href="estadisticas.html" class="btn">ESTADISTICAS</a>
-      <a href="administracion.html" class="btn">ADMINISTRACION</a>
+      <a href="{% url 'estadisticas' %}" class="btn">ESTADISTICAS</a>
+      <a href="{% url 'usuarios' %}" class="btn">ADMINISTRACION</a>
     </div>
     <div class="login-btn">
       <a href="{% url 'logout' %}" class="btn">CERRAR SESION</a>
@@ -33,7 +33,7 @@
   </div>
 
   <div class="container-right">
-    <img class="imagen" src="{% static 'images/Celular.png' %}" alt="Foto Celular">
+    <img class="imagen" src="{% static 'images/telephone.png' %}" alt="Foto Celular">
   </div>
 
 

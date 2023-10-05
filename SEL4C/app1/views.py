@@ -311,7 +311,13 @@ def panel_users(request: HttpRequest):
         return HttpResponse("<h1>Panel de usuarios</h1>Acceso no autorizado")
 
 def graficas(request: HttpRequest):
-    return render(request, 'graficas.html')
+    return render(request, 'individual.html')
+
+def statistics(request: HttpRequest):
+    if (request.user.is_staff):
+        return render(request, 'estadisticas.html')
+    else:
+        return HttpResponse("<h1>Panel de usuarios</h1>Acceso no autorizado")
 
 def unique_profile_entrepreneur(request: HttpRequest, user_email: str):
     # Filtrar por email
@@ -324,10 +330,10 @@ def unique_profile_entrepreneur(request: HttpRequest, user_email: str):
     conscience_and_social_value_b = sum([getattr(s, f'question{i}') for i in range(11, 18) for s in surveys])
     social_innovation_and_financial_sustainability_b = sum([getattr(s, f'question{i}') for i in range(18, 25) for s in surveys])
 
-    autocontrol_a = sum([getattr(s, f'question{i}') for i in range(1, 5) for s in surveys])
-    leadership_a = sum([getattr(s, f'question{i}') for i in range(5, 11) for s in surveys])
-    conscience_and_social_value_a = sum([getattr(s, f'question{i}') for i in range(11, 18) for s in surveys])
-    social_innovation_and_financial_sustainability_a = sum([getattr(s, f'question{i}') for i in range(18, 25) for s in surveys])
+    autocontrol_a = sum([getattr(s, f'question{i}') for i in range(1, 5) for s in surveys2])
+    leadership_a = sum([getattr(s, f'question{i}') for i in range(5, 11) for s in surveys2])
+    conscience_and_social_value_a = sum([getattr(s, f'question{i}') for i in range(11, 18) for s in surveys2])
+    social_innovation_and_financial_sustainability_a = sum([getattr(s, f'question{i}') for i in range(18, 25) for s in surveys2])
 
     # Preparar los datos en formato JSON
     data = {

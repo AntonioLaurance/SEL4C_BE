@@ -33,19 +33,17 @@
                 <h1>INICIAR SESION</h1>
             </div>
 
-            <form action = "{% url 'login' %}" method = "post">
-
-            <form class="login-form">
+            <form class="login-form" action = "{% url 'login' %}" method = "post">
+                {% csrf_token %}
                 <div class="control-group">
-                    <input type="text" class="login-field" value="" placeholder="e-mail" id="login-name">
-                    <label class="login-field-icon fui-user" for="login-name"></label>
+                    <input type="text" class="login-field" value="" placeholder="e-mail" name = "username" id="login-name">
                 </div>
-                    <div class="control-group">
-                        <input type="password" class="login-field" value="" placeholder="password" id="login-pass">
-                        <label class="login-field-icon fui-lock" for="login-pass"></label>
-                    </div>
-                <button class="btn2 btn-primary btn-large btn-block" href="{% url 'index' %}">ENVIAR</a>
+                <div class="control-group">
+                    <input type="password" class="login-field" value="" placeholder="password" name = "password" id="login-pass">
+                </div>
+                <button class="btn2 btn-primary btn-large btn-block" type = "submit">ENVIAR</a>
             </form>
+
         </div>
     </div>
 
