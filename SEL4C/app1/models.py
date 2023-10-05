@@ -103,7 +103,7 @@ class Session(models.Model):
 
 class Survey(models.Model):
     user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, to_field = "email")
-    num_survey = models.PositiveSmallIntegerField(null = True)
+    num_survey = models.PositiveSmallIntegerField(null = False, blank = False)
     date_init = models.DateTimeField(null = True, blank = True)
     date_end = models.DateTimeField(null = True, blank = True)
 
@@ -194,6 +194,11 @@ class Deliver(models.Model):
 
     class Meta:
         app_label = "app1"
+
+    def save(self, *args, **kwargs):
+        # Para guardar la fecha en que se subió cada pregunta
+        self.date = timezone.now()
+        super().save(*args, **kwargs)
 
 
 class Blog(models.Model):
