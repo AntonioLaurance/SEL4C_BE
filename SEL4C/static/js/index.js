@@ -12,11 +12,9 @@ body.onload = () => {
 }
 function createRow(u, i){
     const tr = document.createElement('tr')
-    //delete
     const tdDelete = document.createElement('td')
     const iDelete = document.createElement('i')
     iDelete.className = 'fas fa-trash'
-    //update
     const tdUpdate = document.createElement('td')
     const iUpdate = document.createElement('i')
     iUpdate.className = 'fas fa-pen'
@@ -35,16 +33,12 @@ function createRow(u, i){
         inEmail.value = u.email
         btnAddUpdate.onclick = (e) => btnUpdateUser(e, i)
     }
-
-    //nickname
     const tdNickName = document.createElement('td')
     tdNickName.textContent = u.nickname
-    //email
     const tdEmail = document.createElement('td')
     tdEmail.textContent = u.email
     const tdPassword = document.createElement('td')
     tdPassword.textContent = u.password
-    //join
     tdDelete.appendChild(iDelete)
     tdUpdate.appendChild(iUpdate)
     tr.append(tdDelete, tdUpdate, tdNickName, tdEmail, tdPassword)
