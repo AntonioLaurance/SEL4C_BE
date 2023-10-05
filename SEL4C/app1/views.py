@@ -373,7 +373,7 @@ def unique_profile_thinking(request: HttpRequest, user_email: str):
     # Devolver la lista como un objeto JSON
     return JsonResponse(data, safe=False)
     
-
-
-
-
+def user_data(request):
+    users = User.objects.all().values('username', 'email', 'password')
+    data = list(users)
+    return JsonResponse(data, safe=False)

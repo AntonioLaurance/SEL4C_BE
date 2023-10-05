@@ -48,6 +48,7 @@ urlpatterns = [
     path('logout/', views.logout_user, name = 'logout'),
     path('api/unique-graph-social/<str:user_email>/', views.unique_profile_entrepreneur, name='profile_entrepreneur'),
     path('api/unique-graph-thinking/<str:user_email>/', views.unique_profile_thinking, name='profile_thinking'),
+    path('api/user_data/', views.user_data, name='user_data'),
 ]
 
 
