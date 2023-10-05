@@ -1,10 +1,20 @@
-const users = [
-    new User('A YPZ', 'ypz@gmail.com', 12345),
-    new User('A YPb', 'ypb@gmail.com', 12345),
-    new User('bob', 'bob@gmail.com', 12345),
-]
+import User from '../model/User'
+
+let users = [];
+
+function loadUsers(){
+    fetch('api/user_data')
+        .then(response => response.json())
+        .then(data => {
+            users = data.map(userData => new User(userData.username, userData.email, userData.password));
+        })
+        .catch(error => {
+            console.error('ERROR al obtener los usuarios', error);
+        });
+}
+
 function getUsers(){
-    return users
+    return users;
 }
 function createUser(nickname, email, password){
     const newUser = new User(nickname, email, password)
@@ -19,3 +29,7 @@ function updateUser(i, newNickname, newEmail, newPassword){
 function deleteUser(i){
     users.splice(i, 1)
 }
+
+loadUsers();
+
+export {getUsers, createUser, updateUser, deleteUser};
