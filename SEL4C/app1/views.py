@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.hashers import check_password
 from django.core.files.storage import FileSystemStorage
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.db.models import Q
 from app1.models import *
 from app1.serializers import *
 from app1.forms import *
@@ -13,13 +15,14 @@ from rest_framework.response import Response
 from json import loads, dumps
 import sqlite3
 import os
-from django.http import JsonResponse
 
 # --------------------------------------------------------------------
 # Create your views here.
 # --------------------------------------------------------------------
 # Authentificate users in external sites
 # This functions with the HTTP verb 'POST'
+
+"""
 @csrf_exempt
 def auth(request: HttpRequest):
     # Deserialization
@@ -70,6 +73,70 @@ def auth(request: HttpRequest):
         
     
     return HttpResponse(dumps(json), content_type = 'application/json')
+"""
+
+@csrf_exempt
+def register(request: HttpRequest):
+    if request.method == 'POST':
+        try:
+            # Deserializa el cuerpo de la solicitud JSON
+            body_unicode = request.body.decode('utf-8')
+            body = loads(body_unicode)
+
+            # Verifica si ya existe un usuario con el mismo correo electrónico
+            email = body["email"]
+            if get_user_model().objects.filter(email=email).exists():
+                return JsonResponse({"error": "El correo electrónico ya está registrado."}, status = 400)
+
+            # Crea un nuevo usuario con nombre de usuario basado en el correo electrónico
+            email_username = email.split("@")[0]
+            user = get_user_model()(username=email_username, email=email)
+            user.set_password(body["password"])  # Configura la contraseña
+
+            # Guarda el usuario en la base de datos
+            user.save()
+
+            # Devuelve una respuesta exitosa
+            return JsonResponse({"message": "Usuario registrado exitosamente."}, status = 201)
+
+        except Exception as e:
+            # Maneja otros errores y devuelve una respuesta de error 500
+            return JsonResponse({"error": "Ha ocurrido un error interno en el servidor."}, status = 500)
+
+    else:
+        # Devuelve una respuesta de error 401 para solicitudes que no sean POST
+        return JsonResponse({"error": "Acceso no autorizado."}, status = 401)
+
+@csrf_exempt
+def auth(request: HttpRequest):
+    # Deserializa el cuerpo de la solicitud JSON
+    body_unicode = request.body.decode('utf-8')
+    body = loads(body_unicode)
+
+    print("JSON recibido:", body)  # Imprime el JSON que se recibió
+
+    # Busca el usuario por su nombre de usuario o correo electrónico (puedes ajustarlo según tu modelo)
+    user = User.objects.filter(Q(username=body["username"]) | Q(email=body["username"])).first()
+
+    if user is None:
+        print("Usuario no encontrado")
+        # Si el usuario no existe, devuelve un error
+        return HttpResponse(status=401)  # Cambiamos el código de estado a 401
+
+    # Verifica la contraseña
+    if check_password(body["password"], user.password):
+        print("Contraseña válida")
+        # Si la contraseña coincide, puedes devolver los datos del usuario
+        json_data = {
+            'username': user.username,
+            'email': user.email,
+            # Agrega otros campos del usuario aquí
+        }
+        return JsonResponse(json_data)
+
+    print("Contraseña no válida")
+    # Si la contraseña no coincide, devuelve un error
+    return HttpResponse(status=401)  # Cambiamos el código de estado a 401
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -180,7 +247,7 @@ def simple_upload(request):
 @csrf_exempt
 def logout_user(request):
     logout(request)
-    return redirect('admin')
+    return redirect('index')    # status code 302 (redirect)
 
 def global_profile_entrepreneur(request: HttpRequest):
     # Connect to the database
@@ -251,7 +318,7 @@ def panel_users(request: HttpRequest):
 def graficas(request: HttpRequest):
     return render(request, 'graficas.html')
 
-def unique_profile_entrepreneur(request, user_email):
+def unique_profile_entrepreneur(request: HttpRequest, user_email: str):
     # Filtrar por email
     surveys = Survey.objects.filter(user__email=user_email, num_survey = 1)
     surveys2 = Survey.objects.filter(user__email=user_email, num_survey = 2)
@@ -278,7 +345,7 @@ def unique_profile_entrepreneur(request, user_email):
     return JsonResponse(data)
 
 
-def unique_profile_thinking(request, user_email):
+def unique_profile_thinking(request: HttpRequest, user_email: str):
     # Filtrar los resultados que coinciden con el correo dado
     results = Survey.objects.filter(user__email=user_email, num_survey = 1)
     results2 = Survey.objects.filter(user__email=user_email, num_survey = 2)
@@ -296,7 +363,7 @@ def unique_profile_thinking(request, user_email):
 
     # Crear el objeto JSON con los datos
     data = {
-        'systemic_thinking': {"before":systemic_thinking_b,"after":scientific_thinking_a},
+        'systemic_thinking': {"before":systemic_thinking_b,"after":systemic_thinking_a},
         'scientific_thinking': {"before":scientific_thinking_b,"after":scientific_thinking_a},
         'critical_thinking': {"before":critical_thinking_b,"after":critical_thinking_a},
         'innovative_thinking': {"before":innovative_thinking_b,"after":innovative_thinking_a}

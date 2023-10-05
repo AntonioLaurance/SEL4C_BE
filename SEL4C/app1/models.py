@@ -195,6 +195,11 @@ class Deliver(models.Model):
     class Meta:
         app_label = "app1"
 
+    def save(self, *args, **kwargs):
+        # Para guardar la fecha en que se subió cada pregunta
+        self.date = timezone.now()
+        super().save(*args, **kwargs)
+
 
 class Blog(models.Model):
     author = models.CharField(max_length = 100)
