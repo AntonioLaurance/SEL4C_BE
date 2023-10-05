@@ -22,7 +22,6 @@ import os
 # Authentificate users in external sites
 # This functions with the HTTP verb 'POST'
 
-"""
 @csrf_exempt
 def auth(request: HttpRequest):
     # Deserialization
@@ -30,7 +29,7 @@ def auth(request: HttpRequest):
     body = loads(body_unicode)
  
     # Authentification with given credentials
-    user = authenticate(request, username = body["username"], password = body["password"])
+    user = authenticate(username = body["username"], password = body["password"])
 
     if user is None:
         # The backend no authenticated the credentials
@@ -73,40 +72,35 @@ def auth(request: HttpRequest):
         
     
     return HttpResponse(dumps(json), content_type = 'application/json')
-"""
+
 
 @csrf_exempt
 def register(request: HttpRequest):
     if request.method == 'POST':
-        try:
-            # Deserializa el cuerpo de la solicitud JSON
-            body_unicode = request.body.decode('utf-8')
-            body = loads(body_unicode)
+        # Deserializa el cuerpo de la solicitud JSON
+        body_unicode = request.body.decode('utf-8')
+        body = loads(body_unicode)
 
-            # Verifica si ya existe un usuario con el mismo correo electrónico
-            email = body["email"]
-            if get_user_model().objects.filter(email=email).exists():
-                return JsonResponse({"error": "El correo electrónico ya está registrado."}, status = 400)
+        # Verifica si ya existe un usuario con el mismo correo electrónico
+        if get_user_model().objects.filter(email = body["email"]).exists():
+            return JsonResponse({"error": "El correo electrónico ya está registrado."}, status=400)
+        
+        # Crea un nuevo usuario con nombre de usuario basado en el correo electrónico
+        user = get_user_model()(email = body["email"], password = body["password"])
 
-            # Crea un nuevo usuario con nombre de usuario basado en el correo electrónico
-            email_username = email.split("@")[0]
-            user = get_user_model()(username=email_username, email=email)
-            user.set_password(body["password"])  # Configura la contraseña
+        # Guarda el usuario en la base de datos
+        user.save()
 
-            # Guarda el usuario en la base de datos
-            user.save()
+        # Devuelve una respuesta exitosa
+        return JsonResponse({"message": "Usuario registrado exitosamente."}, status=201)
 
-            # Devuelve una respuesta exitosa
-            return JsonResponse({"message": "Usuario registrado exitosamente."}, status = 201)
-
-        except Exception as e:
-            # Maneja otros errores y devuelve una respuesta de error 500
-            return JsonResponse({"error": "Ha ocurrido un error interno en el servidor."}, status = 500)
 
     else:
         # Devuelve una respuesta de error 401 para solicitudes que no sean POST
-        return JsonResponse({"error": "Acceso no autorizado."}, status = 401)
+        return JsonResponse({"error": "Acceso no autorizado."}, status=401)
 
+
+"""
 @csrf_exempt
 def auth(request: HttpRequest):
     # Deserializa el cuerpo de la solicitud JSON
@@ -137,6 +131,7 @@ def auth(request: HttpRequest):
     print("Contraseña no válida")
     # Si la contraseña no coincide, devuelve un error
     return HttpResponse(status=401)  # Cambiamos el código de estado a 401
+"""
 
 class UserViewSet(viewsets.ModelViewSet):
     """
