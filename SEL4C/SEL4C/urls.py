@@ -37,18 +37,20 @@ urlpatterns = [
     path('graficas/', views.graficas, name = 'graficas'),
     path('usuarios/', views.panel_users, name = 'usuarios'),
     path('estadisticas/', views.statistics, name = 'estadisticas'),
-    path('admin/', admin.site.urls),
     path('login/', views.LoginView.as_view(template_name = 'iniciosesion.html'), name = 'login'),
     path('auth/', views.auth, name = 'auth'),
+    path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace = 'rest_framework')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/user_data/', views.user_data, name='user_data'),
     path('api/graph-social/', views.global_profile_entrepreneur, name = 'graph social'),
     path('api/graph-thinking/', views.global_profile_thinking, name = 'graph thinking'),
-    path('logout/', views.logout_user, name = 'logout'),
     path('api/unique-graph-social/<str:user_email>/', views.unique_profile_entrepreneur, name='profile_entrepreneur'),
     path('api/unique-graph-thinking/<str:user_email>/', views.unique_profile_thinking, name='profile_thinking'),
-    path('api/user_data/', views.user_data, name='user_data'),
+    path('UploadFile', views.UploadFile, name='UploadFile'),
+    path('simple_upload', views.simple_upload, name='simple_upload'),
+    path('logout/', views.logout_user, name = 'logout')
 ]
 
 

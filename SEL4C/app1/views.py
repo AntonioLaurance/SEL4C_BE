@@ -217,25 +217,27 @@ def index(request: HttpRequest):
 def contacto(request):
     return render(request, 'contacto.html')
 
+# En la carpeta 'documents/'
 @csrf_exempt
 def UploadFile(request):
     if request.method == 'POST':
         form = BlogForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            print(form.fields['author'])
+            print(form.fields['user'])
             return HttpResponse('The file is saved')
     else:
         form = BlogForm()
     context = {'form': form,}
     return render(request, 'upload.html', context)
 
+# Se crea una carpeta por usuario en caso de que no la haya
 @csrf_exempt
 def simple_upload(request):
     if request.method == 'POST' and request.FILES['file']:
-        usuario =(request.POST['user'])
-        actividad=(request.POST['activity'])
-        nombre_evidencia=(request.POST['evidence_name'])
+        usuario = (request.POST['user'])
+        actividad = (request.POST['activity'])
+        nombre_evidencia = (request.POST['evidence_name'])
         myfile = request.FILES['file']
         fs = FileSystemStorage()
         path = os.path.join(fs.location, usuario,actividad, nombre_evidencia, myfile.name)
