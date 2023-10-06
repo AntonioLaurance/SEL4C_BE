@@ -28,7 +28,7 @@ def auth(request: HttpRequest):
     body_unicode = request.body.decode('utf-8')
     body = loads(body_unicode)
  
-    print(f"Antes de autentificar: ")
+    print(f"Antes de autentificar: {get_user_model().objects.filter(email = body['username']).__getattribute__('password')}")
 
     # Authentification with given credentials
     user = authenticate(username = body["username"], password = body["password"])
