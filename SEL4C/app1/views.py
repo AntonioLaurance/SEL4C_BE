@@ -320,7 +320,7 @@ def panel_users(request: HttpRequest):
         return HttpResponse("<h1>Panel de usuarios</h1>Acceso no autorizado")
 
 def graficas(request: HttpRequest):
-    return render(request, 'graficaindividuo.html')
+    return render(request, 'graficas.html')
 
 def statistics(request: HttpRequest):
     if (request.user.is_staff):
