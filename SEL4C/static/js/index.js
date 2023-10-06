@@ -1,3 +1,5 @@
+import { fillTable, getUsers } from "./controller/user.js"
+
 const body = document.querySelector('body');
 const tbody = document.querySelector('tbody');
 const btnAddUpdate = document.querySelector('#btnAddUpdate')

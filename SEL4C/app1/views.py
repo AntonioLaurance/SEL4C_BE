@@ -28,8 +28,11 @@ def auth(request: HttpRequest):
     body_unicode = request.body.decode('utf-8')
     body = loads(body_unicode)
  
+    print(f"Antes de autentificar: ")
+
     # Authentification with given credentials
     user = authenticate(username = body["username"], password = body["password"])
+    print(f"Después de autentificar: {user.__getattribute__('password')}")
 
     if user is None:
         # The backend no authenticated the credentials
@@ -37,7 +40,9 @@ def auth(request: HttpRequest):
 
     else:
         # Init the session
+        print(f"Antes de iniciar sesión: {user.__getattribute__('password')}")
         login(request, user)
+        print(f"Después de iniciar sesión: {user.__getattribute__('password')}")
 
         # The backend authenticated the credentials
         json = {'username': user.__getattribute__("username"),
@@ -68,6 +73,8 @@ def auth(request: HttpRequest):
                 'time_spended': user.__getattribute__("time_spended").__str__(),
                 'verified_at': user.__getattribute__("verified_at").__str__(),
                 'HMAC_hash': user.get_session_auth_hash()}
+        
+        print(f"Después del JSON: {user.__getattribute__('password')}")
         
         
     
@@ -240,7 +247,7 @@ def simple_upload(request):
 
 
 @csrf_exempt
-def logout_user(request):
+def logout_user(request: HttpRequest): # __getattribute__('password')
     logout(request)
     return redirect('index')    # status code 302 (redirect)
 
@@ -311,7 +318,7 @@ def panel_users(request: HttpRequest):
         return HttpResponse("<h1>Panel de usuarios</h1>Acceso no autorizado")
 
 def graficas(request: HttpRequest):
-    return render(request, 'individual.html')
+    return render(request, 'graficaindividuo.html')
 
 def statistics(request: HttpRequest):
     if (request.user.is_staff):
