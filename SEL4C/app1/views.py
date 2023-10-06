@@ -27,8 +27,10 @@ def auth(request: HttpRequest):
     # Deserialization
     body_unicode = request.body.decode('utf-8')
     body = loads(body_unicode)
+
+    print(f"'username': {body['username']}, 'password': {body['password']}")
  
-    print(f"Antes de autentificar: {get_user_model().objects.filter(email = body['username']).__getattribute__('password')}")
+    print(f"Antes de autentificar: {get_user_model().objects.filter(email = body['username']).get().__getattribute__('password')}")
 
     # Authentification with given credentials
     user = authenticate(username = body["username"], password = body["password"])
@@ -40,9 +42,9 @@ def auth(request: HttpRequest):
 
     else:
         # Init the session
-        print(f"Antes de iniciar sesión: {user.__getattribute__('password')}")
+        print(f"Antes de iniciar sesión:{user.__getattribute__('password')}")
         login(request, user)
-        print(f"Después de iniciar sesión: {user.__getattribute__('password')}")
+        print(f"Después de iniciar sesión:{user.__getattribute__('password')}")
 
         # The backend authenticated the credentials
         json = {'username': user.__getattribute__("username"),
