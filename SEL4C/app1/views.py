@@ -33,7 +33,7 @@ def auth(request: HttpRequest):
     print(f"Antes de autentificar: {get_user_model().objects.filter(email = body['username']).get().__getattribute__('password')}")
 
     # Authentification with given credentials
-    user = authenticate(username = body["username"], password = body["password"])
+    user = User.objects.filter(Q(username=body["username"]) | Q(email=body["username"])).first()
     print(f"Después de autentificar: {user.__getattribute__('password')}")
 
     if user is None:
