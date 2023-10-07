@@ -28,13 +28,8 @@ def auth(request: HttpRequest):
     body_unicode = request.body.decode('utf-8')
     body = loads(body_unicode)
 
-    print(f"'username': {body['username']}, 'password': {body['password']}")
- 
-    print(f"Antes de autentificar: {get_user_model().objects.filter(email = body['username']).get().__getattribute__('password')}")
-
-    # Authentification with given credentials
-    user = User.objects.filter(Q(username=body["username"]) | Q(email=body["username"])).first()
-    print(f"Después de autentificar: {user.__getattribute__('password')}")
+    # Authentification with given credentials autenticate(username = body["username"], password = body["password"])
+    user = authenticate(request, username = body["username"], password = body["password"])
 
     if user is None:
         # The backend no authenticated the credentials
@@ -42,9 +37,7 @@ def auth(request: HttpRequest):
 
     else:
         # Init the session
-        print(f"Antes de iniciar sesión:{user.__getattribute__('password')}")
         login(request, user)
-        print(f"Después de iniciar sesión:{user.__getattribute__('password')}")
 
         # The backend authenticated the credentials
         json = {'username': user.__getattribute__("username"),
@@ -74,11 +67,7 @@ def auth(request: HttpRequest):
                 
                 'time_spended': user.__getattribute__("time_spended").__str__(),
                 'verified_at': user.__getattribute__("verified_at").__str__(),
-                'HMAC_hash': user.get_session_auth_hash()}
-        
-        print(f"Después del JSON: {user.__getattribute__('password')}")
-        
-        
+                'HMAC_hash': user.get_session_auth_hash()}        
     
     return HttpResponse(dumps(json), content_type = 'application/json')
 
@@ -232,6 +221,7 @@ def UploadFile(request):
     return render(request, 'upload.html', context)
 
 # Se crea una carpeta por usuario en caso de que no la haya
+# En la carpeta 'media/'
 @csrf_exempt
 def simple_upload(request):
     if request.method == 'POST' and request.FILES['file']:

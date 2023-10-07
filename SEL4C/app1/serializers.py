@@ -23,7 +23,7 @@ class HomeUserSerializer(serializers.ModelSerializer):
 class SessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Session
-        fields = '__all__'
+        fields = ('id', 'user', 'ip_address', 'date_init', 'date_end')
 
 
 class SurveySerializer(serializers.ModelSerializer):
@@ -59,7 +59,7 @@ class AnswerQuestionSerializer(serializers.ModelSerializer):
 
     def create(self, *args, **kwargs):
         # POST to the API /respuestas
-        url = "http://127.0.0.1:8000/api/respuestas/"
+        url = "/api/respuestas/"
         
         # If we start the survey
         if(AnswerQuestion.question == 1):
