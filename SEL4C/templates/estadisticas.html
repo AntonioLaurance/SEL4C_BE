@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STATS</title>
+    <title>Estadísticas</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/estadisticas.css' %}" />
@@ -24,7 +24,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Altura total de la ventana gráfica */
+            height: 77vh; /* Altura total de la ventana gráfica */
+            padding-left: 25px;
+            padding-right: 25px;
         }
 
         /* Estilos para los gráficos */
@@ -66,24 +68,27 @@
                 // Función para dibujar el primer gráfico
                 function drawChart1(apiData) {
                     var data1 = google.visualization.arrayToDataTable([
-                        ['Thinking Type', 'Antes', 'Después'],
+                        ['Elementos de perfil emprendedor', 'Antes', 'Después'],
                         ['Autocontrol', apiData.autocontrol.before, apiData.autocontrol.after],
                         ['Liderazgo', apiData.leadership.before, apiData.leadership.after],
-                        ['Consciencia y valor social', apiData.conscience_and_social_value.before, apiData.conscience_and_social_value.after],
-                        ['social_innovation_and_financial_sustainability', apiData.social_innovation_and_financial_sustainability.before, apiData.social_innovation_and_financial_sustainability.after]
+                        ['Conciencia y valor social', apiData.conscience_and_social_value.before, apiData.conscience_and_social_value.after],
+                        ['Innovación social y sostenibilidad financiera', apiData.social_innovation_and_financial_sustainability.before, apiData.social_innovation_and_financial_sustainability.after]
                     ]);
 
                     var options1 = {
+                        title: 'Perfil emprendedor (Antes vs. Después)',  
+                        subtitle: 'Comparativa de autopercepción',       
+                        titleTextStyle: {color: 'white'},
                         backgroundColor: 'black',
-                        chartArea: {
-                        backgroundColor: 'black',
-                        },
-                        textStyle: {
-                        color: 'white'
-                        }
-                        ,chart: {
-                            title: 'Perfil emprendedor (Antes vs. Después)',        
-                        }
+                        chartArea: {backgroundColor: 'black'},
+                        legend: {textStyle: {color: 'white'}},
+                        hAxis: {color: 'white', 
+                                titleTextStyle: {color: 'white'},
+                                textStyle: {color: 'white'}},
+                        vAxis: {color: 'white',
+                                title: 'Puntaje obtenido',
+                                titleTextStyle: {color: 'white'},
+                                textStyle: {color: 'white'}},
                     };
 
                     var chart1 = new google.charts.Bar(document.getElementById('columnchart_material1'));
@@ -101,16 +106,19 @@
                     ]);
 
                     var options2 = {
+                        title: 'Pensamiento complejo (Antes vs. Después)',
+                        subtitle: 'Comparativa del nivel de percepción de logro',
+                        titleTextStyle: {color: 'white'},
                         backgroundColor: 'black',
-                        chartArea: {
-                        backgroundColor: 'black',
-                        },
-                        textStyle: {
-                        color: 'white'
-                        }
-                        ,chart: {
-                            title: 'Pensamiento complejo (Antes vs. Después)',
-                        }
+                        chartArea: {backgroundColor: 'black'},
+                        legend: {textStyle: {color: 'white'}},
+                        hAxis: {color: 'white', 
+                                titleTextStyle: {color: 'white'},
+                                textStyle: {color: 'white'}},
+                        vAxis: {color: 'white',
+                                title: 'Puntaje obtenido',
+                                titleTextStyle: {color: 'white'},
+                                textStyle: {color: 'white'}}
                     };
 
                     var chart2 = new google.charts.Bar(document.getElementById('columnchart_material2'));
