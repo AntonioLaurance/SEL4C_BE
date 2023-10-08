@@ -60,7 +60,7 @@ body {
   .texto-grande {
     color: #fff;
     font-family: Montserrat, ExtraBold;
-    font-size: 330%;
+    font-size: 450%;
     left: 20%;
     position: absolute;
     top: 20vh;
@@ -68,7 +68,7 @@ body {
     z-index: 2;
   }
   .texto-small {
-    color: #fff;
+    color: #BDBDBD;
     font-family: Montserrat, Regular;
     left: 20%;
     position: absolute;
