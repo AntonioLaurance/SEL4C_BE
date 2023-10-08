@@ -1,0 +1,55 @@
+body {
+    height: 100vh; /* Establecer la altura del cuerpo al 100% del viewport */
+    display: flex; /* Utilizar display flex */
+    flex-direction: column; /* Apilar elementos en columna */
+    justify-content: center; /* Centrar verticalmente */
+    align-items: center; /* Centrar horizontalmente */
+    margin: 0; /* Eliminar márgenes por defecto del cuerpo */
+    background-color: black;
+  }
+
+  header {
+    align-items: center;
+    background-color: #000000;
+    color: #fff;
+    display: flex;
+    font-family: Montserrat, Semibold;
+    justify-content: space-between;
+    padding: 60px 20px;
+  }
+
+  .logo {
+    align-items: center;
+    display: flex;
+  }
+
+  .logo h1 {
+    margin: 0;
+  }
+
+  .logo img {
+    margin-right: 20px;
+    /* Espacio entre el logo y el título */
+    width: 40px;
+    /* Ajusta el tamaño del logo según tus necesidades */
+  }
+  
+  .error {
+    color: white;
+    font-size: 24px; /* Tamaño de fuente para el texto */
+    margin-bottom: 20px; /* Espacio entre el texto y la imagen */
+  }
+  
+  .img {
+    text-align: center; /* Centrar horizontalmente la imagen */
+  }
+  
+  .img img {
+    max-width: 100%; /* Asegurarse de que la imagen no sea más ancha que el contenedor */
+    max-height: 300px; /* Modificar la altura máxima de la imagen según tus preferencias */
+  }
+
+  .highlight {
+    color: red; /* Establecer el color de las letras "NO" en rojo */
+  }  
+  

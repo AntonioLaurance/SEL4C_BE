@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina de Error 404</title>
+    <link rel="stylesheet" href="{% static 'css/error404.css' %}" />
+</head>
+<body>
+    <header>
+        <div class="logo">
+          <img src="{% static 'images/SEL4C.png' %}" alt="Logo del Sitio">
+          <h1>SEL4C</h1>
+        </div>
+    </header>
+    <div class="error">
+        ¡Ups! Page not found...
+    </div>
+
+    <div class="img">
+        <img src="{% static 'images/404.png' %}" alt="Foto Error">
+    </div>
+</body>
+</html>

@@ -1,11 +1,13 @@
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.hashers import check_password
-from django.core.files.storage import FileSystemStorage
+from django.views.defaults import page_not_found
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.core.files.storage import FileSystemStorage
+from django.template import RequestContext
 from django.db.models import Q
 from app1.models import *
 from app1.serializers import *
@@ -309,7 +311,7 @@ def panel_users(request: HttpRequest):
     if (request.user.is_staff):
         return render(request, 'administracion.html')
     else:
-        return HttpResponse("<h1>Panel de usuarios</h1>Acceso no autorizado")
+        return render(request, 'error401.html')
 
 def graficas(request: HttpRequest):
     return render(request, 'individual.html')
@@ -318,7 +320,8 @@ def statistics(request: HttpRequest):
     if (request.user.is_staff):
         return render(request, 'estadisticas.html')
     else:
-        return HttpResponse("<h1>Panel de usuarios</h1>Acceso no autorizado")
+        return render(request, 'error401.html')
+    
 
 def unique_profile_entrepreneur(request: HttpRequest, user_email: str):
     # Filtrar por email
@@ -378,3 +381,8 @@ def user_data(request: HttpRequest):
     users = User.objects.all().values('username', 'email', 'password')
     data = list(users)
     return JsonResponse(data, safe = False)
+
+def pag_404_not_found(request, exception, template_name = "error404.html"):
+	response = render(request, template_name)
+	response.status_code = 404
+	return response

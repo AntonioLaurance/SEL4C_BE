@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import handler404
 from django.contrib import admin
 from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView
@@ -27,7 +28,10 @@ router.register(r'preguntas', views.QuestionViewSet)
 router.register(r'respuestas', views.SurveyViewSet)
 router.register(r'respuestas_detalladas', views.AnswerQuestionViewSet)
 router.register(r'entregas', views.DeliverViewSet)
- 
+
+# Our customized 404 error page
+handler404 = views.pag_404_not_found
+
 # Wire op our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API. 
 urlpatterns = [
@@ -52,5 +56,4 @@ urlpatterns = [
     path('simple_upload', views.simple_upload, name='simple_upload'),
     path('logout/', views.logout_user, name = 'logout')
 ]
-
 
