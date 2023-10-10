@@ -524,7 +524,7 @@ def user_data(request: HttpRequest):
     data = list(users)
     return JsonResponse(data, safe = False)
 
-def pag_404_not_found(request: HttpRequest, exception: Exception | None, template_name = "error404.html"):
+def pag_404_not_found(request: HttpRequest, exception: Exception, template_name = "error404.html"):
 	response = render(request, template_name)
 	response.status_code = 404
 	return response
