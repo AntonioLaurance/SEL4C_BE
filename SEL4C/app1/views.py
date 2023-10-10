@@ -304,7 +304,7 @@ class ResponseData:
     def __init__(self, question, answer):
         self.question = question
         self.answer = answer
-        
+
 # Home page    
 def index(request: HttpRequest):
     if (request.user.is_staff):
@@ -524,7 +524,36 @@ def user_data(request: HttpRequest):
     data = list(users)
     return JsonResponse(data, safe = False)
 
-def pag_404_not_found(request, exception, template_name = "error404.html"):
+def pag_404_not_found(request: HttpRequest, exception: Exception | None, template_name = "error404.html"):
 	response = render(request, template_name)
 	response.status_code = 404
 	return response
+
+def user_data(request: HttpRequest):
+    users = User.objects.all().values('username', 'email', 'password')
+    data = list(users)
+    return JsonResponse(data, safe = False)
+    
+@csrf_exempt 
+def create_user(request: HttpRequest):
+    if request.method == 'POST':
+        try:
+            username = request.POST.get('username')
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+
+            user = User(username = username, email = email, password = password)
+            user.save()
+
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    return JsonResponse({'success': False, 'error': 'Método no permitido'})
+
+def delete_user(request: HttpRequest, user_id: int):
+    try:
+        user = User.objects.get(pk=user_id)
+        user.delete()
+        return JsonResponse({'success': True})
+    except User.DoesNotExist:
+        return JsonResponse({'success': False})

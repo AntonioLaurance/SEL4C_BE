@@ -41,20 +41,19 @@
                 <table>
                     <thead>
                         <tr>
-                            <th></th>
-                            <th></th>
                             <th>Usuario</th>
                             <th>Correo</th>
                             <th>Contraseña</th>
+                            <th>Borrar</th>
+                            <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="userTableBody">
+
                     </tbody>
                 </table>
             </section>
+            <script src="{% static 'js/userTable.js' %}"></script>
         </main>
-    <script type="module" src="{% static 'js/model/User.js' %}"></script>
-    <script type="module" src="{% static 'js/controller/user.js' %}"></script>
-    <script src="{% static 'js/index.js' %}"></script>
     </body>
 </html>

@@ -109,7 +109,8 @@ body {
    cursor: pointer;
    transform: scale(0.97);
  }
- /*TABLE*/
+
+ /* ---- TABLE ---- */
 
  #tableContainer{
     background-color: black;
