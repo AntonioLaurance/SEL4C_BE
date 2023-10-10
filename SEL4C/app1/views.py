@@ -24,6 +24,7 @@ import os
 # Authentificate users in external sites
 # This functions with the HTTP verb 'POST'
 
+"""
 @csrf_exempt
 def auth(request: HttpRequest):
     # Deserialization
@@ -72,6 +73,61 @@ def auth(request: HttpRequest):
                 'HMAC_hash': user.get_session_auth_hash()}        
     
     return HttpResponse(dumps(json), content_type = 'application/json')
+"""
+
+# Modifique auth
+@csrf_exempt
+def auth(request: HttpRequest):
+    if request.method == "POST":
+        try:
+            # Deserializa el cuerpo de la solicitud JSON
+            data = json.loads(request.body.decode('utf-8'))
+
+            print("JSON recibido:", data)  # Imprime el JSON que se recibió
+
+            # Verifica si se proporcionó un email y una contraseña en el JSON
+            if "email" in data and "password" in data:
+                email = data["email"]
+                password = data["password"]
+
+                # Busca el usuario por su correo electrónico
+                user = User.objects.filter(email=email).first()
+
+                if user is not None:
+                    # Usuario encontrado
+                    print("Usuario encontrado:", user.username)
+
+                    if check_password(password, user.password):
+                        # Contraseña válida
+                        print("Contraseña válida")
+
+                        # Aquí puedes construir la respuesta JSON con los datos que desees
+                        response_data = {
+                            'email': user.email,
+                            'username': user.username,
+                            # Agrega otros campos del usuario aquí
+                        }
+
+                        return JsonResponse(response_data)
+
+                    else:
+                        # Contraseña no válida
+                        print("Contraseña no válida")
+
+                else:
+                    # Usuario no encontrado
+                    print("Usuario no encontrado")
+
+            else:
+                # Datos incompletos en la solicitud JSON
+                print("Solicitud JSON incompleta")
+
+        except json.JSONDecodeError:
+            # Error al decodificar el JSON
+            print("Error al decodificar el JSON")
+
+    # Si algo falla o no se encuentra al usuario, devuelve un error
+    return HttpResponse(status=401)  # Cambiamos el código de estado a 401
 
 
 @csrf_exempt
