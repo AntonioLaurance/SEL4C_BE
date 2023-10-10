@@ -9,14 +9,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
 from django.template import RequestContext
 from django.db.models import Q
+from rest_framework import viewsets, permissions
+from rest_framework.response import Response
+from rest_framework.decorators import action
 from app1.models import *
 from app1.serializers import *
 from app1.forms import *
-from rest_framework import viewsets, permissions
-from rest_framework.response import Response
 from json import loads, dumps
 import sqlite3
-import json
 import os
 
 # --------------------------------------------------------------------
@@ -82,7 +82,7 @@ def auth(request: HttpRequest):
     if request.method == "POST":
         try:
             # Deserializa el cuerpo de la solicitud JSON
-            data = json.loads(request.body.decode('utf-8'))
+            data = loads(request.body.decode('utf-8'))
 
             print("JSON recibido:", data)  # Imprime el JSON que se recibió
 
@@ -222,6 +222,30 @@ class SurveyViewSet(viewsets.ModelViewSet):
     serializer_class = SurveySerializer
     permission_classes = [permissions.AllowAny]
 
+    @action(detail = False, methods = ['post'])
+    def custom_create(self, request):
+        try:
+            data = request.data
+
+            print("JSON recibido:", data)
+
+            # Extrae los campos del JSON
+            user = data.get("user")
+            num_survey = data.get("num_survey")
+
+            # Crea un diccionario con las respuestas de las preguntas
+            questions_data = {f"question{i}": data.get(f"question{i}") for i in range(1, 50)}
+
+            # Crea una instancia de Survey con los datos
+            survey = Survey.objects.create(user = user, num_survey = num_survey, **questions_data)
+
+            # Serializa la instancia creada y devuelve una respuesta
+            serializer = SurveySerializer(survey)
+            return Response(serializer.data, status = 201)
+
+        except Exception as e:
+            return HttpResponse(str(e), status = 400)
+
 class DeliverViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
@@ -237,6 +261,22 @@ class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     permission_clases = [permissions.AllowAny]
+
+    def list(self, request, *args, **kwargs):
+        # Obtener las preguntas de la base de datos
+        questions = Question.objects.all()
+
+        # Formatear las preguntas en una lista de diccionarios
+        formatted_questions = []
+        for question in questions:
+            formatted_question = {
+                "id": question.id,
+                "text": question.question
+            }
+            formatted_questions.append(formatted_question)
+
+        # Crear la respuesta HTTP con solo las preguntas
+        return Response(formatted_questions)
 
 class AnswerQuestionViewSet(viewsets.ModelViewSet):
     """
@@ -254,6 +294,17 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+class UserResponsesData:
+    def __init__(self, user, num_survey, responses):
+        self.user = user
+        self.num_survey = num_survey
+        self.responses = responses
+
+class ResponseData:
+    def __init__(self, question, answer):
+        self.question = question
+        self.answer = answer
+        
 # Home page    
 def index(request: HttpRequest):
     if (request.user.is_staff):
@@ -278,6 +329,40 @@ def UploadFile(request):
         form = BlogForm()
     context = {'form': form,}
     return render(request, 'upload.html', context)
+
+@csrf_exempt
+def user_responses(request):
+    if request.method == 'POST':
+        body = request.body.decode('UTF-8')
+        eljson = loads(body)
+        user = eljson['user']
+        num_survey = eljson['num_survey']
+        responses_data = eljson['responses']
+
+        # Crea una lista para almacenar las respuestas
+        responses = []
+
+        for response_data in responses_data:
+            question = response_data['question']
+            answer = response_data['answer']
+
+            # Crea objetos ResponseData y agrégalos a la lista de respuestas
+            response = ResponseData(question, answer)
+            responses.append(response)
+
+            # Aquí puedes realizar las operaciones necesarias con la respuesta, como guardarla en la base de datos
+
+        # Puedes acceder a user, num_survey y responses aquí y realizar las operaciones necesarias
+        print("User:", user)
+        print("Num Survey:", num_survey)
+        for response in responses:
+            print("Question:", response.question)
+            print("Answer:", response.answer)
+
+        # Devuelve una respuesta de éxito
+        return HttpResponse('OK')
+    else:
+        return HttpResponse('Método no permitido', status = 405)
 
 # Se crea una carpeta por usuario en caso de que no la haya
 # En la carpeta 'media/'

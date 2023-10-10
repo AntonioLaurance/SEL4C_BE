@@ -52,6 +52,7 @@ urlpatterns = [
     path('api/graph-thinking/', views.global_profile_thinking, name = 'graph thinking'),
     path('api/unique-graph-social/<str:user_email>/', views.unique_profile_entrepreneur, name='profile_entrepreneur'),
     path('api/unique-graph-thinking/<str:user_email>/', views.unique_profile_thinking, name='profile_thinking'),
+    path('user_responses/', views.user_responses, name='user_responses'),
     path('UploadFile', views.UploadFile, name='UploadFile'),
     path('simple_upload', views.simple_upload, name='simple_upload'),
     path('logout/', views.logout_user, name = 'logout')
