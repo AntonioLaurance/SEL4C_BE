@@ -88,22 +88,22 @@ body {
     padding: 8px;
     border-radius: 6px;
     border: none;
-    width: 400px;
+    width: 80%;
     position: relative;
     text-align: center;
-    left: 30%;
+    margin: auto;
  }
  #formContainer > form > button{
     position: relative;
     justify-content: center;
-    left: 31%;
     width: 400px;
-    margin-top: 20px;
+    margin-top: 80px;
     padding: 8px;
     border-radius: 50px;
     border: none;
     background-color: #0057A7;
     color: #fff;
+    margin: auto;
  }
  #formContainer > form > button:hover{
    cursor: pointer;
@@ -141,7 +141,7 @@ td{
 label {
     position: relative;
     text-align: center;
-    padding: 10px;
+    padding: 20px;
 }
 
 /*BREAKPOINTS*/
