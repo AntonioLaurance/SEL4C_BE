@@ -10,8 +10,8 @@ from django.conf import settings
 # Create your models here.
 class User(AbstractUser):
     # Login information
-    username = models.CharField(max_length = 150, primary_key = True, unique = True, null = False, blank = False)
-    email = models.EmailField('email address', null = False, unique = True)
+    username = models.CharField('username', max_length = 150, primary_key = True, unique = True, null = False, blank = False)
+    email = models.EmailField('email', null = False, unique = True)
     second_last_name = models.CharField(max_length = 150, null = False, default = "")
     pass_phase = models.CharField(max_length = 255, null = True, blank = True)  # Cambié a blank=True
 
@@ -32,7 +32,7 @@ class User(AbstractUser):
 
     # Change the attribute for the login for the user
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
 
     class Meta:
         swappable = 'AUTH_USER_MODEL'

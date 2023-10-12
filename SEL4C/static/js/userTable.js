@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         const confirmDelete = confirm('Estas seguro de borrar este usuario')
                         if (confirmDelete){
                             // Obtenemos url para el borrado
-                            fetch('/api/delete_user/' + user.username + '/', {
+                            fetch('/api/usuarios/' + user.username + '/', {
                                 method: 'DELETE',
                             })
                                 .then(response => response.json())
