@@ -202,7 +202,7 @@ class Deliver(models.Model):
 
 
 class Blog(models.Model):
-    user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, to_field = "email")
+    user = models.ForeignKey(User, null = True, blank = False, on_delete = models.CASCADE, to_field = "email")
     title = models.CharField(max_length = 200)
     file = models.FileField(upload_to = 'documents/')
 

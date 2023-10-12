@@ -609,9 +609,9 @@ def create_user(request: HttpRequest):
             return JsonResponse({'success': False, 'error': str(e)})
     return JsonResponse({'success': False, 'error': 'Método no permitido'})
 
-def delete_user(request: HttpRequest, user_id: int):
+def delete_user(request: HttpRequest, user_id: str):
     try:
-        user = User.objects.get(pk=user_id)
+        user = User.objects.get(username = user_id)
         user.delete()
         return JsonResponse({'success': True})
     except User.DoesNotExist:
