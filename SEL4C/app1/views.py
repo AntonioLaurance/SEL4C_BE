@@ -331,7 +331,7 @@ def UploadFile(request):
     return render(request, 'upload.html', context)
 
 @csrf_exempt
-def user_responses(request):
+def user_responses(request: HttpRequest):
     if request.method == 'POST':
         body = request.body.decode('UTF-8')
         eljson = loads(body)
@@ -355,9 +355,68 @@ def user_responses(request):
         # Puedes acceder a user, num_survey y responses aquí y realizar las operaciones necesarias
         print("User:", user)
         print("Num Survey:", num_survey)
+
+        questions = []
+
         for response in responses:
             print("Question:", response.question)
             print("Answer:", response.answer)
+            questions.append(response.answer)
+
+        user_instance = User.objects.filter(email = user).get()
+
+        Survey.objects.create(user = user_instance, num_survey = num_survey, question1 = questions[0], 
+                                                                             question2 = questions[1], 
+                                                                             question3 = questions[2],
+                                                                             question4 = questions[3],
+                                                                             question5 = questions[4],
+                                                                             question6 = questions[5],
+                                                                             question7 = questions[6],
+                                                                             question8 = questions[7],
+                                                                             question9 = questions[8],
+                                                                             question10 = questions[9],
+                                                                             question11 = questions[10],
+                                                                             question12 = questions[11],
+                                                                             question13 = questions[12],
+                                                                             question14 = questions[13],
+                                                                             question15 = questions[14],
+                                                                             question16 = questions[15],
+                                                                             question17 = questions[16],
+                                                                             question18 = questions[17],
+                                                                             question19 = questions[18],
+                                                                             question20 = questions[19],
+                                                                             question21 = questions[20],
+                                                                             question22 = questions[21],
+                                                                             question23 = questions[22],
+                                                                             question24 = questions[23],
+                                                                             question25 = questions[24],
+                                                                             question26 = questions[25],
+                                                                             question27 = questions[26],
+                                                                             question28 = questions[27],
+                                                                             question29 = questions[28],
+                                                                             question30 = questions[29],
+                                                                             question31 = questions[30],
+                                                                             question32 = questions[31],
+                                                                             question33 = questions[32],
+                                                                             question34 = questions[33],
+                                                                             question35 = questions[34],
+                                                                             question36 = questions[35],
+                                                                             question37 = questions[36],
+                                                                             question38 = questions[37],
+                                                                             question39 = questions[38],
+                                                                             question40 = questions[39],
+                                                                             question41 = questions[40],
+                                                                             question42 = questions[41],
+                                                                             question43 = questions[42],
+                                                                             question44 = questions[43],
+                                                                             question45 = questions[44],
+                                                                             question46 = questions[45],
+                                                                             question47 = questions[46],
+                                                                             question48 = questions[47],
+                                                                             question49 = questions[48])
+
+                                                                             
+                                                                             
 
         # Devuelve una respuesta de éxito
         return HttpResponse('OK')
