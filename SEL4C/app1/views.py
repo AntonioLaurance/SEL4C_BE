@@ -198,6 +198,10 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_clases = [permissions.AllowAny]
 
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super(UserViewSet, self).dispatch(*args, **kwargs)
+
 class HomeUserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
@@ -609,6 +613,7 @@ def create_user(request: HttpRequest):
             return JsonResponse({'success': False, 'error': str(e)})
     return JsonResponse({'success': False, 'error': 'Método no permitido'})
 
+@csrf_exempt
 def delete_user(request: HttpRequest, user_id: str):
     try:
         user = User.objects.get(username = user_id)
