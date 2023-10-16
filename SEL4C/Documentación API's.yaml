@@ -1,0 +1,1517 @@
+openapi: 3.0.3
+
+servers:
+  - url: http://sel4c.westus3.cloudapp.azure.com
+
+info:
+  title: "Documentación API's"
+  version: 0.0.0
+  description: "Aquí se describirán todas las API's implementadas."
+paths:
+  /api/entregas/:
+    get:
+      operationId: entregas_list
+      description: "Desde aquí se visualizan todo lo que los usuarios de la aplicación han contestado en sus actividades."
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - entregas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDeliverList'
+          description: ''
+    post:
+      operationId: entregas_create
+      description: "Aquí se envían las respuestas de cada actividad desde la aplicación móvil iOS."
+      tags:
+      - entregas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Deliver'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Deliver'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Deliver'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deliver'
+          description: ''
+  /api/entregas/{id}/:
+    get:
+      operationId: entregas_retrieve
+      description: "Visualizar una respuesta de un usuario en una actividad específica."
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this deliver.
+        required: true
+      tags:
+      - entregas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deliver'
+          description: ''
+    put:
+      operationId: entregas_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this deliver.
+        required: true
+      tags:
+      - entregas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Deliver'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Deliver'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Deliver'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deliver'
+          description: ''
+    patch:
+      operationId: entregas_partial_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this deliver.
+        required: true
+      tags:
+      - entregas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDeliver'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDeliver'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDeliver'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deliver'
+          description: ''
+    delete:
+      operationId: entregas_destroy
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this deliver.
+        required: true
+      tags:
+      - entregas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/preguntas/:
+    get:
+      operationId: preguntas_list
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - preguntas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedQuestionList'
+          description: ''
+    post:
+      operationId: preguntas_create
+      description: ""
+      tags:
+      - preguntas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Question'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Question'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Question'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Question'
+          description: ''
+  /api/preguntas/{id}/:
+    get:
+      operationId: preguntas_retrieve
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this question.
+        required: true
+      tags:
+      - preguntas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Question'
+          description: ''
+    put:
+      operationId: preguntas_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this question.
+        required: true
+      tags:
+      - preguntas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Question'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Question'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Question'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Question'
+          description: ''
+    patch:
+      operationId: preguntas_partial_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this question.
+        required: true
+      tags:
+      - preguntas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedQuestion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedQuestion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedQuestion'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Question'
+          description: ''
+    delete:
+      operationId: preguntas_destroy
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this question.
+        required: true
+      tags:
+      - preguntas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/respuestas/:
+    get:
+      operationId: respuestas_list
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - respuestas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSurveyList'
+          description: ''
+    post:
+      operationId: respuestas_create
+      description: API endpoint that allows groups to be viewed or edited.
+      tags:
+      - respuestas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Survey'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Survey'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Survey'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: ''
+  /api/respuestas/{id}/:
+    get:
+      operationId: respuestas_retrieve
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this survey.
+        required: true
+      tags:
+      - respuestas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: ''
+    put:
+      operationId: respuestas_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this survey.
+        required: true
+      tags:
+      - respuestas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Survey'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Survey'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Survey'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: ''
+    patch:
+      operationId: respuestas_partial_update
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this survey.
+        required: true
+      tags:
+      - respuestas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSurvey'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSurvey'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSurvey'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: ''
+    delete:
+      operationId: respuestas_destroy
+      description: API endpoint that allows groups to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this survey.
+        required: true
+      tags:
+      - respuestas
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/usuarios/:
+    get:
+      operationId: usuarios_list
+      description: API endpoint that allows users to be created or viewed.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - usuarios
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserList'
+          description: ''
+    post:
+      operationId: usuarios_create
+      description: API endpoint that allows users to be created or viewed.
+      tags:
+      - usuarios
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/usuarios/{username}/:
+    get:
+      operationId: usuarios_retrieve
+      description: API endpoint that allows users to be created or viewed.
+      parameters:
+      - in: path
+        name: username
+        schema:
+          type: string
+        description: A unique value identifying this user.
+        required: true
+      tags:
+      - usuarios
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: usuarios_update
+      description: API endpoint that allows users to be created or viewed.
+      parameters:
+      - in: path
+        name: username
+        schema:
+          type: string
+        description: A unique value identifying this user.
+        required: true
+      tags:
+      - usuarios
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: usuarios_partial_update
+      description: API endpoint that allows users to be created or viewed.
+      parameters:
+      - in: path
+        name: username
+        schema:
+          type: string
+        description: A unique value identifying this user.
+        required: true
+      tags:
+      - usuarios
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    delete:
+      operationId: usuarios_destroy
+      description: API endpoint that allows users to be created or viewed.
+      parameters:
+      - in: path
+        name: username
+        schema:
+          type: string
+        description: A unique value identifying this user.
+        required: true
+      tags:
+      - usuarios
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    AnswerQuestion:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: string
+          format: email
+          title: Email address
+        question:
+          type: integer
+        answer:
+          type: integer
+      required:
+      - answer
+      - id
+      - question
+      - user
+    Deliver:
+      type: object
+      properties:
+        user:
+          type: string
+          format: email
+          title: Email address
+        date:
+          type: string
+          format: date-time
+          nullable: true
+        question:
+          type: string
+        answer:
+          type: string
+      required:
+      - answer
+      - question
+      - user
+    PaginatedAnswerQuestionList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnswerQuestion'
+    PaginatedDeliverList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Deliver'
+    PaginatedQuestionList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Question'
+    PaginatedSessionList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Session'
+    PaginatedSurveyList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Survey'
+    PaginatedUserList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    PatchedAnswerQuestion:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: string
+          format: email
+          title: Email address
+        question:
+          type: integer
+        answer:
+          type: integer
+    PatchedDeliver:
+      type: object
+      properties:
+        user:
+          type: string
+          format: email
+          title: Email address
+        date:
+          type: string
+          format: date-time
+          nullable: true
+        question:
+          type: string
+        answer:
+          type: string
+    PatchedQuestion:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        survey:
+          type: string
+          nullable: true
+          maxLength: 255
+        category:
+          type: string
+          nullable: true
+          maxLength: 255
+        sub_category:
+          type: string
+          nullable: true
+          maxLength: 255
+        question:
+          type: string
+    PatchedSession:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: string
+          format: email
+          title: Email address
+        ip_address:
+          type: string
+          nullable: true
+        date_init:
+          type: string
+          format: date-time
+          nullable: true
+        date_end:
+          type: string
+          format: date-time
+          nullable: true
+    PatchedSurvey:
+      type: object
+      properties:
+        user:
+          type: string
+          format: email
+          title: Email address
+        num_survey:
+          type: integer
+        date_init:
+          type: string
+          format: date-time
+          nullable: true
+        date_end:
+          type: string
+          format: date-time
+          nullable: true
+        question1:
+          type: integer
+          nullable: true
+        question2:
+          type: integer
+          nullable: true
+        question3:
+          type: integer
+          nullable: true
+        question4:
+          type: integer
+          nullable: true
+        question5:
+          type: integer
+          nullable: true
+        question6:
+          type: integer
+          nullable: true
+        question7:
+          type: integer
+          nullable: true
+        question8:
+          type: integer
+          nullable: true
+        question9:
+          type: integer
+          nullable: true
+        question10:
+          type: integer
+          nullable: true
+        question11:
+          type: integer
+          nullable: true
+        question12:
+          type: integer
+          nullable: true
+        question13:
+          type: integer
+          nullable: true
+        question14:
+          type: integer
+          nullable: true
+        question15:
+          type: integer
+          nullable: true
+        question16:
+          type: integer
+          nullable: true
+        question17:
+          type: integer
+          nullable: true
+        question18:
+          type: integer
+          nullable: true
+        question19:
+          type: integer
+          nullable: true
+        question20:
+          type: integer
+          nullable: true
+        question21:
+          type: integer
+          nullable: true
+        question22:
+          type: integer
+          nullable: true
+        question23:
+          type: integer
+          nullable: true
+        question24:
+          type: integer
+          nullable: true
+        question25:
+          type: integer
+          nullable: true
+        question26:
+          type: integer
+          nullable: true
+        question27:
+          type: integer
+          nullable: true
+        question28:
+          type: integer
+          nullable: true
+        question29:
+          type: integer
+          nullable: true
+        question30:
+          type: integer
+          nullable: true
+        question31:
+          type: integer
+          nullable: true
+        question32:
+          type: integer
+          nullable: true
+        question33:
+          type: integer
+          nullable: true
+        question34:
+          type: integer
+          nullable: true
+        question35:
+          type: integer
+          nullable: true
+        question36:
+          type: integer
+          nullable: true
+        question37:
+          type: integer
+          nullable: true
+        question38:
+          type: integer
+          nullable: true
+        question39:
+          type: integer
+          nullable: true
+        question40:
+          type: integer
+          nullable: true
+        question41:
+          type: integer
+          nullable: true
+        question42:
+          type: integer
+          nullable: true
+        question43:
+          type: integer
+          nullable: true
+        question44:
+          type: integer
+          nullable: true
+        question45:
+          type: integer
+          nullable: true
+        question46:
+          type: integer
+          nullable: true
+        question47:
+          type: integer
+          nullable: true
+        question48:
+          type: integer
+          nullable: true
+        question49:
+          type: integer
+          nullable: true
+    PatchedUser:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        password:
+          type: string
+          maxLength: 128
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        second_last_name:
+          type: string
+          maxLength: 150
+        age:
+          type: integer
+          nullable: true
+        genre:
+          type: string
+          nullable: true
+          maxLength: 255
+        country:
+          type: string
+          nullable: true
+          maxLength: 255
+        institution:
+          type: string
+          nullable: true
+          maxLength: 255
+        carrer:
+          type: string
+          nullable: true
+          maxLength: 255
+        grade:
+          type: string
+          nullable: true
+          maxLength: 255
+    Question:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        survey:
+          type: string
+          nullable: true
+          maxLength: 255
+        category:
+          type: string
+          nullable: true
+          maxLength: 255
+        sub_category:
+          type: string
+          nullable: true
+          maxLength: 255
+        question:
+          type: string
+      required:
+      - id
+      - question
+    Session:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: string
+          format: email
+          title: Email address
+        ip_address:
+          type: string
+          nullable: true
+        date_init:
+          type: string
+          format: date-time
+          nullable: true
+        date_end:
+          type: string
+          format: date-time
+          nullable: true
+      required:
+      - id
+      - user
+    Survey:
+      type: object
+      properties:
+        user:
+          type: string
+          format: email
+          title: Email address
+        num_survey:
+          type: integer
+        date_init:
+          type: string
+          format: date-time
+          nullable: true
+        date_end:
+          type: string
+          format: date-time
+          nullable: true
+        question1:
+          type: integer
+          nullable: true
+        question2:
+          type: integer
+          nullable: true
+        question3:
+          type: integer
+          nullable: true
+        question4:
+          type: integer
+          nullable: true
+        question5:
+          type: integer
+          nullable: true
+        question6:
+          type: integer
+          nullable: true
+        question7:
+          type: integer
+          nullable: true
+        question8:
+          type: integer
+          nullable: true
+        question9:
+          type: integer
+          nullable: true
+        question10:
+          type: integer
+          nullable: true
+        question11:
+          type: integer
+          nullable: true
+        question12:
+          type: integer
+          nullable: true
+        question13:
+          type: integer
+          nullable: true
+        question14:
+          type: integer
+          nullable: true
+        question15:
+          type: integer
+          nullable: true
+        question16:
+          type: integer
+          nullable: true
+        question17:
+          type: integer
+          nullable: true
+        question18:
+          type: integer
+          nullable: true
+        question19:
+          type: integer
+          nullable: true
+        question20:
+          type: integer
+          nullable: true
+        question21:
+          type: integer
+          nullable: true
+        question22:
+          type: integer
+          nullable: true
+        question23:
+          type: integer
+          nullable: true
+        question24:
+          type: integer
+          nullable: true
+        question25:
+          type: integer
+          nullable: true
+        question26:
+          type: integer
+          nullable: true
+        question27:
+          type: integer
+          nullable: true
+        question28:
+          type: integer
+          nullable: true
+        question29:
+          type: integer
+          nullable: true
+        question30:
+          type: integer
+          nullable: true
+        question31:
+          type: integer
+          nullable: true
+        question32:
+          type: integer
+          nullable: true
+        question33:
+          type: integer
+          nullable: true
+        question34:
+          type: integer
+          nullable: true
+        question35:
+          type: integer
+          nullable: true
+        question36:
+          type: integer
+          nullable: true
+        question37:
+          type: integer
+          nullable: true
+        question38:
+          type: integer
+          nullable: true
+        question39:
+          type: integer
+          nullable: true
+        question40:
+          type: integer
+          nullable: true
+        question41:
+          type: integer
+          nullable: true
+        question42:
+          type: integer
+          nullable: true
+        question43:
+          type: integer
+          nullable: true
+        question44:
+          type: integer
+          nullable: true
+        question45:
+          type: integer
+          nullable: true
+        question46:
+          type: integer
+          nullable: true
+        question47:
+          type: integer
+          nullable: true
+        question48:
+          type: integer
+          nullable: true
+        question49:
+          type: integer
+          nullable: true
+      required:
+      - num_survey
+      - user
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        password:
+          type: string
+          maxLength: 128
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        second_last_name:
+          type: string
+          maxLength: 150
+        age:
+          type: integer
+          nullable: true
+        genre:
+          type: string
+          nullable: true
+          maxLength: 255
+        country:
+          type: string
+          nullable: true
+          maxLength: 255
+        institution:
+          type: string
+          nullable: true
+          maxLength: 255
+        carrer:
+          type: string
+          nullable: true
+          maxLength: 255
+        grade:
+          type: string
+          nullable: true
+          maxLength: 255
+      required:
+      - email
+      - password
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
