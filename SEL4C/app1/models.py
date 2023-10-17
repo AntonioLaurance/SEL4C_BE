@@ -45,7 +45,9 @@ class User(AbstractUser):
             self.username = slugify(f"{self.email}-{unique_id}")
 
         # Cifrar la contraseña (pbkdf2_sha256 con 600000 iteraciones)
-        User.set_password(self, raw_password = self.password)
+        if(self.password[0:13] == "pbkdf2_sha256$"):
+            User.set_password(self, raw_password = self.password)
+
         super().save(*args, **kwargs)
 
 
