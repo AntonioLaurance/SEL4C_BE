@@ -10,7 +10,10 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['email', 'password', 'first_name', 'last_name', 'second_last_name', 
                   'age', 'genre', 'country', 'institution', 'carrer', 'grade']
         
-
+        def save(self, *args, **kwargs):
+            super().save(*args, **kwargs)
+            
+        
 class HomeUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = HomeUser
