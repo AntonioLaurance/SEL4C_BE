@@ -582,18 +582,13 @@ def unique_profile_thinking(request: HttpRequest, user_email: str):
     # Devolver la lista como un objeto JSON
     return JsonResponse(data, safe = False)
     
-def user_data(request: HttpRequest):
-    users = User.objects.all().values('username', 'email', 'password')
-    data = list(users)
-    return JsonResponse(data, safe = False)
-
 def pag_404_not_found(request: HttpRequest, exception: Exception, template_name = "error404.html"):
 	response = render(request, template_name)
 	response.status_code = 404
 	return response
 
 def user_data(request: HttpRequest):
-    users = User.objects.all().values('username', 'email', 'password')
+    users = User.objects.all().values('username', 'email')
     data = list(users)
     return JsonResponse(data, safe = False)
     

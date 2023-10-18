@@ -18,12 +18,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     const row = document.createElement('tr');
                     const usernameCell = document.createElement('td');
                     const emailCell = document.createElement('td');
-                    const passwordCell = document.createElement('td');
+                    // const passwordCell = document.createElement('td');
                     const actionsCell = document.createElement('td'); // Celda de acciones
         
                     usernameCell.textContent = user.username;
                     emailCell.textContent = user.email;
-                    passwordCell.textContent = user.password;        
+                    // passwordCell.textContent = user.password;        
 
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = 'Eliminar';
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     row.appendChild(usernameCell);
                     row.appendChild(emailCell);
-                    row.appendChild(passwordCell);
+                    // row.appendChild(passwordCell);
                     row.appendChild(actionsCell);
 
                     userTableBody.appendChild(row);
