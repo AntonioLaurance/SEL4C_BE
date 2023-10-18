@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser 
+from django.utils.translation import gettext
 from django.utils import timezone
 from django.db import models
 from datetime import timedelta
@@ -10,20 +11,20 @@ from django.conf import settings
 # Create your models here.
 class User(AbstractUser):
     # Login information
-    username = models.CharField('username', max_length = 150, primary_key = True, unique = True, null = False, blank = False)
-    email = models.EmailField('email', null = False, unique = True)
+    username = models.CharField(gettext('username'), max_length = 150, primary_key = True, unique = True, null = False, blank = False)
+    email = models.EmailField(gettext('email'), null = False, unique = True)
     second_last_name = models.CharField(max_length = 150, null = False, default = "")
-    pass_phase = models.CharField(max_length = 255, null = True, blank = True)  # Cambié a blank=True
+    pass_phase = models.CharField(gettext('pass phase'), max_length = 255, null = True, blank = True)  # Cambié a blank=True
 
     # User Information
     time_spended = models.DurationField(default = timedelta(days = 0, hours = 0, minutes = 0, seconds = 0))
     verified_at = models.DateTimeField(null = True)
 
     # Data analysis
-    age = models.PositiveSmallIntegerField(null = True)
-    genre = models.CharField(max_length = 255, null = True)
-    country = models.CharField(max_length = 255, null = True)
-    institution = models.CharField(max_length = 255, null = True)
+    age = models.PositiveSmallIntegerField(gettext('age'), null = True)
+    genre = models.CharField(gettext('genre'), max_length = 255, null = True)
+    country = models.CharField(gettext('country'), max_length = 255, null = True)
+    institution = models.CharField(gettext('institution'), max_length = 255, null = True)
     carrer = models.CharField(max_length = 255, null = True)
     grade = models.CharField(max_length = 255, null = True)
 
@@ -192,10 +193,10 @@ class Survey(models.Model):
 # Entregas del texto de las preguntas de las actividades de la aplicación
 class Deliver(models.Model):
     user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE, to_field = "email") # ¿Qué desaparezcan las entregas de un usuario cuando lo eliminamos inmediatamente?
-    date = models.DateTimeField(null = True, blank = True)
+    date = models.DateTimeField(gettext('date'), null = True, blank = True)
 
-    question = models.TextField(null = False, blank = False)
-    answer = models.TextField(null = False, blank = False)
+    question = models.TextField(gettext('question'), null = False, blank = False)
+    answer = models.TextField(gettext('answer'), null = False, blank = False)
 
     class Meta:
         app_label = "app1"

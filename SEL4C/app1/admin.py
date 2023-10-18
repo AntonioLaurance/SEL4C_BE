@@ -10,19 +10,19 @@ class UserAdmin(admin.ModelAdmin):
         (None, {
             'fields': ('username', 'pass_phase', 'password')
         }),
-        ('Personal info', {
+        ('Información personal', {
             'fields': ('first_name', 'last_name', 
                        'second_last_name', 'email', 
                        'age', 'genre', 'country')
         }), 
-        ('Permissions', {
+        ('Permisos', {
             'fields': ('is_active', 'is_staff', 'is_superuser',
                        'groups', 'user_permissions')
         }), 
-        ('Important dates', {
+        ('Fechas importantes', {
             'fields': ('last_login', 'date_joined')
         }), 
-        ('Academic info', {
+        ('Información académica', {
             'fields': ('institution', 'carrer', 'grade')
         })
     )
@@ -43,6 +43,9 @@ class SurveyAdmin(admin.ModelAdmin):
 class DeliverAdmin(admin.ModelAdmin):
     list_display = ('user', 'date', 'question')
     list_filter = ('user', 'date', 'question')
+
+# Title of our administrator panel
+admin.site.site_header = "SEL4C"
 
 # Update app name
 name = "SEL4C.app1"

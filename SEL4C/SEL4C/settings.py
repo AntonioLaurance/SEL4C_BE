@@ -146,7 +146,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 JAZZMIN_UI_TWEAKS = {
-    "theme": "darkly",
+    "theme": "sketchy",
 }
 
 # Default primary key field type

@@ -59,4 +59,3 @@ urlpatterns = [
     path('simple_upload', views.simple_upload, name='simple_upload'),
     path('logout/', views.logout_user, name = 'logout')
 ]
-
