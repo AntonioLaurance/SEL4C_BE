@@ -182,6 +182,9 @@ class Survey(models.Model):
     question48 = models.PositiveSmallIntegerField(null = True, blank = False)   # Skills
     question49 = models.PositiveSmallIntegerField(null = True, blank = False)   # Attitudes and values
 
+    def __str__(self):
+        return f"{self.user}, encuesta {self.num_survey}"
+
     class Meta:
         app_label = "app1"
 
@@ -196,6 +199,9 @@ class Deliver(models.Model):
 
     class Meta:
         app_label = "app1"
+
+    def __str__(self):
+        return f"{self.user}, {self.question}"
 
     def save(self, *args, **kwargs):
         # Para guardar la fecha en que se subió cada pregunta

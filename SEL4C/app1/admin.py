@@ -31,15 +31,18 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Session)
 class SessionAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user', 'ip_address', 'date_init', 'date_end')
+    list_filter = ('user', 'ip_address', 'date_init', 'date_end')
 
 @admin.register(Survey)
 class SurveyAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user', 'num_survey', 'date_init', 'date_end')
+    list_filter = ('user', 'num_survey', 'date_init', 'date_end')
 
 @admin.register(Deliver)
 class DeliverAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user', 'date', 'question')
+    list_filter = ('user', 'date', 'question')
 
 # Update app name
 name = "SEL4C.app1"
