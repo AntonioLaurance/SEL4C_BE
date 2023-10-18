@@ -37,6 +37,7 @@ REST_FRAMEWORK = {
 }
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,7 +48,7 @@ INSTALLED_APPS = [
     'app1',
     'drf_spectacular',
 ]
-
+ 
 # Default user model
 AUTH_USER_MODEL = 'app1.User'
 
@@ -130,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ES'
 
 TIME_ZONE = 'America/Mexico_City'
 
@@ -144,6 +145,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+JAZZMIN_UI_TWEAKS = {
+    "theme": "darkly",
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
